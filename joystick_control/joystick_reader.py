@@ -1,22 +1,33 @@
-from . import mpu9250_i2c
 import random # just for testing, gen random vals
 
 import RPi.GPIO as GPIO
 
+try:
+    from . import mpu9250_i2c
+    error_message = False
+except:
+    error_message = True
+
 class JoystickReader:
-    def __init__(self, trigger_pin, top_pin):
+    def __init__(self, trigger_pin, top_pin, keepvals=10, weight=0):
         self.trigger_pin = trigger_pin
         self.top_pin = top_pin
         GPIO.setmode(GPIO.BCM)
         GPIO.setup( [self.trigger_pin, self.top_pin], GPIO.IN, pull_up_down = GPIO.PUD_UP)
         # GPIO.remove_event_detect(self.top_pin)
-        self.acceleration_x = Axis('acceleration x')
-        self.acceleration_y = Axis('acceleration y')
-        self.acceleration_z = Axis('acceleration z')
-        self.gyro_x = Axis('gyro x')
-        self.gyro_y = Axis('gyro y')
-        self.gyro_z = Axis('gyro z')
-        # GPIO.add_event_detect(self.top_pin, GPIO.FALLING, callback=self.zero_gyro, bouncetime=200)
+        self.acceleration_x = Axis('acceleration x', keep_vals=keepvals, weight=weight)
+        self.acceleration_y = Axis('acceleration y', keep_vals=keepvals, weight=weight)
+        self.acceleration_z = Axis('acceleration z', keep_vals=keepvals, weight=weight)
+        self.gyro_x = Axis('gyro x', keep_vals=keepvals, weight=weight)
+        self.gyro_y = Axis('gyro y', keep_vals=keepvals, weight=weight)
+        self.gyro_z = Axis('gyro z', keep_vals=keepvals, weight=weight)
+        self.axes = []
+        self.axes.append(self.acceleration_x)
+        self.axes.append(self.acceleration_y)
+        self.axes.append(self.acceleration_z)
+        self.axes.append(self.gyro_x)
+        self.axes.append(self.gyro_y)
+        self.axes.append(self.gyro_z)
         
     def load_pins(self, trigger_pin, top_pin):
         GPIO.setup([self.trigger_pin, self.top_pin], GPIO.IN, pull_up_down = GPIO.PUD_OFF)
@@ -26,6 +37,10 @@ class JoystickReader:
         GPIO.setup( [self.trigger_pin, self.top_pin], GPIO.IN, pull_up_down = GPIO.PUD_UP)
         # GPIO.add_event_detect(self.top_pin, GPIO.RISING, callback=self.zero_gyro, bouncetime=200)
 
+    def load_keep_vals_and_weight(self, new_keep_vals, new_weight):
+        for ax in self.axes:
+            ax.weight = new_weight
+            ax.keep_vals = new_keep_vals
         
     def end(self):
         GPIO.setup([self.trigger_pin, self.top_pin], GPIO.IN, pull_up_down = GPIO.PUD_OFF)
@@ -59,6 +74,7 @@ class JoystickReader:
         self.gyro_z.zero()
 
     def get_vals_from_sensor(self):
+        global error_message
         try:
             ax, ay, az, wx, wy, wz = mpu9250_i2c.mpu6050_conv()
             # print(wx,wy,wz)
@@ -68,8 +84,9 @@ class JoystickReader:
             self.gyro_x.add_val(wx)
             self.gyro_y.add_val(wy)
             self.gyro_z.add_val(wz)
+            error_message = False
         except:
-            pass
+            error_message = True
         
         
     def get_averages(self): # possibly add "top and trigger" to this 
@@ -98,7 +115,7 @@ class JoystickReader:
 
     
 class Axis:
-    def __init__(self, name, keep_vals=10):
+    def __init__(self, name, keep_vals=10, weight=0):
         """ 
         Stores rolling average of recorded values for an axis.
         """
@@ -110,15 +127,17 @@ class Axis:
         """ current average """
         self.keep_vals = keep_vals
         """ number of values to keep """
+        self.weight=weight
+        """ weights the last reading """
         
     def add_val(self, val):
         self.vals.append(val)
-        if len(self.vals) > self.keep_vals:
+        while len(self.vals) > self.keep_vals:
             self.vals.pop(0)
         total = 0
         for each in self.vals:
             total += each
-        self.average = total / len(self.vals)
+        self.average = (total + val*self.weight)/ (len(self.vals)+self.weight)
         # print(f"{val} added to {self.name}, new avg: {self.average}")
         
     def get_last_val(self):
