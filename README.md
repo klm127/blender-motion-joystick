@@ -21,10 +21,12 @@ Copy the folder `joystick_control` to `/user/share/blender/scripts/addons`
 Blender runs its own version of Python. That means that it may not have access to certain libs this program needs out of the box. If that's the case, you have to add them manually. That means going into your python folder and copying the `RPi.GPIO` lib and possibly `smbus` over to the Blender/2.79/scripts/modules directory.
 
 Or you can create a virtual environment (haven't tried)
-```virtualenv -p python3 venv```
-```source venv/bin/activate```
-```pip3 install smbus```
-```cp -r venv/lib/python3.5/site-packages/smbus/ ~.config/blender/2.7.9/scripts/modules```
+```
+virtualenv -p python3 venv
+source venv/bin/activate
+pip3 install smbus
+cp -r venv/lib/python3.5/site-packages/smbus/ ~.config/blender/2.7.9/scripts/modules
+```
 [link to those instructions](http://lacuisine.tech/blog/2017/10/19/how-to-install-python-libs-in-blender-part-1/)
 
 
