@@ -26,21 +26,22 @@ bl_info = {
     "warning": "",
     "category": "Object"}
 
-import bpy
+if __name__ == '__main__':
+    import bpy
+    import mathutils
+    from . import joystick_reader
+
+    from bpy.props import (
+            StringProperty,
+            BoolProperty,
+            IntProperty,
+            FloatProperty,
+            FloatVectorProperty,
+            EnumProperty,
+            )
 import threading
 import random
 import time
-import mathutils
-from . import joystick_reader
-
-from bpy.props import (
-        StringProperty,
-        BoolProperty,
-        IntProperty,
-        FloatProperty,
-        FloatVectorProperty,
-        EnumProperty,
-        )
 
 from bpy.types import Operator
 

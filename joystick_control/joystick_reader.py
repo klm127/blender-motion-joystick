@@ -10,27 +10,46 @@ except ImportError:
 
     
 class Axis:
-    def __init__(self, name, keep_vals=10, weight=0):
-        """ 
-        Stores rolling average of recorded values for an axis.
+    """
+    Stores rolling average of recorded values for an axis.
 
-        :param name: name of the axis, e.g. 'ax','wy',etc.
-        :type name: str
-        :param keep_vals: number of recently read values to keep for averaging.
-        :type keep_vals: int
-        :param weight: factor to weigh last-read value
-        :type weight: float
-        """
+    :param name: name of the axis, e.g. 'ax','wy',etc.
+    :type name: str
+    :param keep_vals: number of recently read values to keep for averaging.
+    :type keep_vals: int
+    :param weight: factor to weigh last-read value
+    :type weight: float
+    """
+    def __init__(self, name, keep_vals=10, weight=0):
         self.name = name
-        """ name of the axis """
+        """ 
+        name of the axis 
+        
+        :type: str
+        """
         self.vals = []
-        """ last few values recorded """
-        self.average = 0
-        """ current average """
+        """ 
+        last few values recorded 
+        
+        :type: list
+        """
+        self.average = 0.0
+        """ 
+        current average 
+        
+        :type: float
+        """
         self.keep_vals = keep_vals
-        """ number of values to keep """
+        """ 
+        number of values to keep 
+        
+        :type: int
+        """
         self.weight=weight
-        """ weights the last reading """
+        """ 
+        weights the last reading 
+        :type: float
+        """
         
     def add_val(self, val):
         """
@@ -50,7 +69,8 @@ class Axis:
         
     def get_last_val(self):
         """
-        Get the last read value
+        Get the last read value of this axis.
+
         :returns: last value
         :rtype: number
         """
@@ -101,6 +121,17 @@ class JoystickReader:
         self.gyro_y = Axis('gyro y', keep_vals=keepvals, weight=weight)
         self.gyro_z = Axis('gyro z', keep_vals=keepvals, weight=weight)
         self.axes = []
+        """
+        A list of the used axes. 
+        
+        Includes self.acceleration_x, self.acceleration_y, self.acceleration_z, self.gyro_x, self.gyro_y, and self.gyro_z 
+        
+        :ref: `joystick_reader.Axis`
+        
+        
+        :type: Axis
+         
+        """
         self.axes.append(self.acceleration_x)
         self.axes.append(self.acceleration_y)
         self.axes.append(self.acceleration_z)
@@ -196,6 +227,7 @@ class JoystickReader:
         
     def get_averages(self):
         """
+
         Returns average readings for each Axis object as a dictionary.
 
         :returns: Axis averages and GPIO pin reads.

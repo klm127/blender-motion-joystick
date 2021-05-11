@@ -13,6 +13,9 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../joystick_control'))
+# sys.path.insert(0, os.path.abspath('../../joystick_control'))
+sys.path.insert(1, 'C:/Program Files/Blender Foundation/Blender/2.79/scripts/modules/bpy')
+sys.path.insert(2, 'C:/Program Files/Blender Foundation/Blender/2.79/scripts/modules/')
 
 
 # -- Project information -----------------------------------------------------
@@ -31,8 +34,14 @@ release = '1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc'
+    'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx'
 ]
+
+# lets ref to python3
+intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
+                       'smbus': ('https://smbus2.readthedocs.io/en/latest/', None),
+                       'bpy': ('https://docs.blender.org/api/2.79/',None)}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
