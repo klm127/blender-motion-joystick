@@ -204,7 +204,7 @@ class JoystickReader:
 
     def get_vals_from_sensor(self):
         """
-        Gets values from the mpu9250_i2c.py, which interfaces with the sensor.
+        Gets values from :py:mod:`mpu9250_i2c.py` , which interfaces with the sensor.
 
         Passes sensor reads to appropriate Axis object.
 

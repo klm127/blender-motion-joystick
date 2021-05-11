@@ -1,3 +1,5 @@
 .idea
 *.__pycache__
 joystick_control/__pyache__
+debug_sphinx.txt
+debug_sphinx2.txt

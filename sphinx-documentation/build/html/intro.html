@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Intro &mdash; blender-motion-joystick 1.0 documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="blender-motion-joystick 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Wiring" href="wiring.html"/>
+        <link rel="prev" title="blender-motion-joystick" href="index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> blender-motion-joystick </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i2c.html">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#module-joystick_reader">joystick_reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blender.html">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#module-__init__">joystick_control (the blender files)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a></li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <div class="section" id="intro">
+<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h1>
+<p>This project is a motion-sensing controller for use in a variety of 3D applications. To demonstrate it, an addon has been written for Blender, a popular, open-source 3D Modeling application used by artists all over the world.</p>
+<p>// link Blender</p>
+<p>The housing is an unbranded vintage flight joystick handle from the early 90s that I purchased off eBay.</p>
+<p>The main component is a WaveShare MPU-9255 10-Degrees-Of-Freedom Inertial Motion Sensor, which is affixed on the interior of the joystick.</p>
+<p>// link sensor</p>
+<p>The sensor has several components, but for this project, what I needed was the gyroscope. The gyroscope can detect angular motion along 3 axes. The gyroscope is mounted so that the X-axis corresponds to pitch, the Y axis corresponds to roll, and the Z axis corresponds to yaw, as would likely be expected.</p>
+<p>By rotating the joystick handle and pressing a button, the user can manipulate objects in Blender.</p>
+<p>This type of motion-sensor technology is very useful to 3D artists, and is sold for big bucks. For example, the rokoko smartsuit pro retails for $2500 and uses 19 sensors similar to this one (which went for $15-$30) to read human movement from a full body suit. This is commonly used to animate “rigs” of 3D models, as even the best artists have difficulty making 3d models animate in a way believable to the human eye.</p>
+<p>// link rokoko</p>
+<p>Another application is in virtual reality. One popular virtual reality platform is the HTC vue, which comes with two wireless joystick controllers that are not very different from this joystick, if a bit more polished. Each of those joystick on their own retails for about $200.</p>
+<p>// link htc vue</p>
+<p>Building similar equipment at home that can accomplish those same tasks is viable. The total cost of all equipment used in this joystick was less than $40.</p>
+<dl class="simple">
+<dt><strong>Demonstration</strong></dt><dd><ol class="arabic simple">
+<li><p>Wire the joystick by following the Wiring guide.</p></li>
+<li><p>Install Blender on a Raspberry Pi by running <cite>sudo apt-get Blender</cite></p></li>
+<li><p>Copy the folder <cite>joystick_control</cite> into the <cite>blender/scripts/addons</cite> directory.</p></li>
+<li><p>Open Blender 2.7.9</p></li>
+<li><p>In <cite>File &gt; Settings &gt; Addons</cite>, check <cite>Motion Sensor Joystick Controls</cite> to enable the addon.</p></li>
+<li><p>Select the object to rotate.</p></li>
+<li><p>Press spacebar to bring up the command menu.</p></li>
+<li><p>Type <cite>Open Joystick Menu</cite> to activate the user interface.</p></li>
+<li><p>Select desired options, and check <cite>running</cite>.</p></li>
+<li><p>Press <cite>OK</cite></p></li>
+<li><p>Hold down the top button on the joystick and rotate the joystick to move the selected object(s) in Blender.</p></li>
+</ol>
+</dd>
+</dl>
+<p>// link to wiring guide</p>
+<p><strong>About this Documentation</strong></p>
+<p>This documentation was made with Sphinx.</p>
+<p>Dependent libraries have been incorporated into the Sphinx documentation generator, so links to outside documentation (such as for smbus and bpy) work, if the reader desires further information about the dependencies.</p>
+<p>// link Sphinx</p>
+</div>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wiring.html" class="btn btn-neutral float-right" title="Wiring">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="blender-motion-joystick"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Karl Miller.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

@@ -1,0 +1,424 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>i2c Interfacing &mdash; blender-motion-joystick 1.0 documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="blender-motion-joystick 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Blender Addon" href="blender.html"/>
+        <link rel="prev" title="Wiring" href="wiring.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> blender-motion-joystick </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-mpu9250_i2c">MPU9250_i2c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-joystick_reader">joystick_reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blender.html">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#module-__init__">joystick_control (the blender files)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a></li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <div class="section" id="i2c-interfacing">
+<h1>i2c Interfacing<a class="headerlink" href="#i2c-interfacing" title="Permalink to this headline">¶</a></h1>
+<p>Two modules define classes which interface with the sensor. <a class="reference internal" href="#module-mpu9250_i2c" title="mpu9250_i2c"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpu9250_i2c</span></code></a> collects the raw data. <a class="reference internal" href="#module-joystick_reader" title="joystick_reader"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joystick_reader</span></code></a> stores and averages sensor data over time and makes it available to the Blender addon when needed.</p>
+<p><strong>Spec Sheets</strong></p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="_downloads/b25ff3764123382634ae9b176ff1a31c/10-DOF-IMU-Sensor-C-User-Manual-EN.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Regular</span> <span class="pre">Manual</span> <span class="pre">WaveShare</span> <span class="pre">Sensor</span></code></a></p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/05b9c998a550419106bf220442434bc1/PS-MPU-9250A-01-v1.1.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Product</span> <span class="pre">Specification</span> <span class="pre">MPU-9250A</span></code></a></p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/114c0ae8033b16183cd53513ddbc6d44/RM-MPU-9255.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Registry</span> <span class="pre">Map</span> <span class="pre">MPU-9255</span></code></a></p></li>
+</ul>
+<div class="section" id="module-mpu9250_i2c">
+<span id="mpu9250-i2c"></span><h2>MPU9250_i2c<a class="headerlink" href="#module-mpu9250_i2c" title="Permalink to this headline">¶</a></h2>
+<p>This module interfaces directly with the sensor.</p>
+<p>Code credit to:</p>
+<dl class="py function">
+<dt id="mpu9250_i2c.MPU6050_start">
+<code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">MPU6050_start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mpu9250_i2c.html#MPU6050_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mpu9250_i2c.MPU6050_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function initializes the sensor…</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-joystick_reader">
+<span id="joystick-reader"></span><h2>joystick_reader<a class="headerlink" href="#module-joystick_reader" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="joystick_reader.Axis">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">joystick_reader.</span></code><code class="sig-name descname"><span class="pre">Axis</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_vals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#Axis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.Axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores rolling average of recorded values for an axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – name of the axis, e.g. ‘ax’,’wy’,etc.</p></li>
+<li><p><strong>keep_vals</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – number of recently read values to keep for averaging.</p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – factor to weigh last-read value</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="joystick_reader.Axis.name">
+<code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#joystick_reader.Axis.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of the axis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="joystick_reader.Axis.vals">
+<code class="sig-name descname"><span class="pre">vals</span></code><a class="headerlink" href="#joystick_reader.Axis.vals" title="Permalink to this definition">¶</a></dt>
+<dd><p>last few values recorded</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="joystick_reader.Axis.average">
+<code class="sig-name descname"><span class="pre">average</span></code><a class="headerlink" href="#joystick_reader.Axis.average" title="Permalink to this definition">¶</a></dt>
+<dd><p>current average</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="joystick_reader.Axis.keep_vals">
+<code class="sig-name descname"><span class="pre">keep_vals</span></code><a class="headerlink" href="#joystick_reader.Axis.keep_vals" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of values to keep</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="joystick_reader.Axis.weight">
+<code class="sig-name descname"><span class="pre">weight</span></code><a class="headerlink" href="#joystick_reader.Axis.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>weights the last reading 
+:type: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.Axis.add_val">
+<code class="sig-name descname"><span class="pre">add_val</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#Axis.add_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.Axis.add_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append value to recently-read values and update average based on weighting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> (<em>number</em>) – value to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.Axis.get_last_val">
+<code class="sig-name descname"><span class="pre">get_last_val</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#Axis.get_last_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.Axis.get_last_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the last read value of this axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>last value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.Axis.zero">
+<code class="sig-name descname"><span class="pre">zero</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#Axis.zero"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.Axis.zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear stored values and zero average.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="joystick_reader.JoystickReader">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">joystick_reader.</span></code><code class="sig-name descname"><span class="pre">JoystickReader</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger_pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepvals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interfaces with sensor and updates axis objects with readings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trigger_pin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The raspberry Pi GPIO pin that the trigger button is wired to.</p></li>
+<li><p><strong>top_pin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The raspberry Pi GPIO pin that the top button is wired to.</p></li>
+<li><p><strong>keep_vals</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The number of sensor readings each axes will store for averaging.</p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The factor by which each axis will weight the last-read sensor value.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="joystick_reader.JoystickReader.axes">
+<code class="sig-name descname"><span class="pre">axes</span></code><a class="headerlink" href="#joystick_reader.JoystickReader.axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of the used axes.</p>
+<p>Includes self.acceleration_x, self.acceleration_y, self.acceleration_z, self.gyro_x, self.gyro_y, and self.gyro_z</p>
+<dl class="field-list simple">
+<dt class="field-odd">Ref</dt>
+<dd class="field-odd"><p><cite>joystick_reader.Axis</cite></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#joystick_reader.Axis" title="joystick_reader.Axis">Axis</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.load_pins">
+<code class="sig-name descname"><span class="pre">load_pins</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger_pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_pin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.load_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.load_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the RPi.GPIO pins for the top and trigger line.</p>
+<p>Turns off input detection for previously active pins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trigger_pin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The raspberry Pi GPIO pin that the trigger button is wired to.</p></li>
+<li><p><strong>top_pin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The raspberry Pi GPIO pin that the top button is wired to.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.load_keep_vals_and_weight">
+<code class="sig-name descname"><span class="pre">load_keep_vals_and_weight</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_keep_vals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.load_keep_vals_and_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.load_keep_vals_and_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes retained values length and last value weighting for all axes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keep_vals</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The number of sensor readings each axes will store for averaging.</p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The factor by which each axis will weight the last-read sensor value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.end">
+<code class="sig-name descname"><span class="pre">end</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns off detection for currently active RPi.GPIO pins.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.get_round_of_random_values">
+<code class="sig-name descname"><span class="pre">get_round_of_random_values</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.get_round_of_random_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.get_round_of_random_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a value between -5 and 5 to each Axis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.zero_gyro">
+<code class="sig-name descname"><span class="pre">zero_gyro</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.zero_gyro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.zero_gyro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zeros gyroscopes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.get_vals_from_sensor">
+<code class="sig-name descname"><span class="pre">get_vals_from_sensor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.get_vals_from_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.get_vals_from_sensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets values from <code class="xref py py-mod docutils literal notranslate"><span class="pre">mpu9250_i2c.py</span></code> , which interfaces with the sensor.</p>
+<p>Passes sensor reads to appropriate Axis object.</p>
+<p>If sensor fails to read, sets global error flag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.get_averages">
+<code class="sig-name descname"><span class="pre">get_averages</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.get_averages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.get_averages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns average readings for each Axis object as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Axis averages and GPIO pin reads.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="joystick_reader.JoystickReader.get_last">
+<code class="sig-name descname"><span class="pre">get_last</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/joystick_reader.html#JoystickReader.get_last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#joystick_reader.JoystickReader.get_last" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns last readings for each Axis object as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Axis last-reads and GPIO pin reads.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="blender.html" class="btn btn-neutral float-right" title="Blender Addon">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wiring.html" class="btn btn-neutral" title="Wiring"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Karl Miller.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

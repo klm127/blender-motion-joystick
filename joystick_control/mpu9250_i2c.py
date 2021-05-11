@@ -1,6 +1,20 @@
-import smbus,time
+"""
+This module interfaces directly with the sensor.
+
+Code credit to:
+
+"""
+
+if __name__ == '__main__':
+    import smbus, time
 
 def MPU6050_start():
+    """
+    This function initializes the sensor...
+
+
+    :return:
+    """
     # alter sample rate (stability)
     samp_rate_div = 0 # sample rate = 8 kHz/(1+samp_rate_div)
     bus.write_byte_data(MPU6050_ADDR, SMPLRT_DIV, samp_rate_div)
@@ -110,7 +124,7 @@ def AK8963_conv():
     m_z = (mag_z/(2.0**15.0))*mag_sens
 
     return m_x,m_y,m_z
-    
+
 # MPU6050 Registers
 MPU6050_ADDR = 0x68
 PWR_MGMT_1   = 0x6B
@@ -136,7 +150,8 @@ AK8963_ST2   = 0x09
 AK8963_CNTL  = 0x0A
 mag_sens = 4900.0 # magnetometer sensitivity: 4800 uT
 
-# start I2C driver
-bus = smbus.SMBus(1) # start comm with i2c bus
-gyro_sens,accel_sens = MPU6050_start() # instantiate gyro/accel
-AK8963_start() # instantiate magnetometer
+if __name__ == '__main__':
+    # start I2C driver
+    bus = smbus.SMBus(1) # start comm with i2c bus
+    gyro_sens,accel_sens = MPU6050_start() # instantiate gyro/accel
+    AK8963_start() # instantiate magnetometer

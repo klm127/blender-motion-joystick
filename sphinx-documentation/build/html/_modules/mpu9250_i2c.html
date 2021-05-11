@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mpu9250_i2c &#8212; blender-motion-joystick 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for mpu9250_i2c</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module interfaces directly with the sensor.</span>
+
+<span class="sd">Code credit to:</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">smbus</span><span class="o">,</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="MPU6050_start"><a class="viewcode-back" href="../i2c.html#mpu9250_i2c.MPU6050_start">[docs]</a><span class="k">def</span> <span class="nf">MPU6050_start</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function initializes the sensor...</span>
+
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># alter sample rate (stability)</span>
+    <span class="n">samp_rate_div</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># sample rate = 8 kHz/(1+samp_rate_div)</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">SMPLRT_DIV</span><span class="p">,</span> <span class="n">samp_rate_div</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1"># reset all sensors</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span><span class="n">PWR_MGMT_1</span><span class="p">,</span><span class="mh">0x00</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1"># power management and crystal settings</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">PWR_MGMT_1</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1">#Write to Configuration register</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1">#Write to Gyro configuration register</span>
+    <span class="n">gyro_config_sel</span> <span class="o">=</span> <span class="p">[</span><span class="mb">0b00000</span><span class="p">,</span><span class="mb">0b010000</span><span class="p">,</span><span class="mb">0b10000</span><span class="p">,</span><span class="mb">0b11000</span><span class="p">]</span> <span class="c1"># byte registers</span>
+    <span class="n">gyro_config_vals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">250.0</span><span class="p">,</span><span class="mf">500.0</span><span class="p">,</span><span class="mf">1000.0</span><span class="p">,</span><span class="mf">2000.0</span><span class="p">]</span> <span class="c1"># degrees/sec</span>
+    <span class="n">gyro_indx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">GYRO_CONFIG</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">gyro_config_sel</span><span class="p">[</span><span class="n">gyro_indx</span><span class="p">]))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1">#Write to Accel configuration register</span>
+    <span class="n">accel_config_sel</span> <span class="o">=</span> <span class="p">[</span><span class="mb">0b00000</span><span class="p">,</span><span class="mb">0b01000</span><span class="p">,</span><span class="mb">0b10000</span><span class="p">,</span><span class="mb">0b11000</span><span class="p">]</span> <span class="c1"># byte registers</span>
+    <span class="n">accel_config_vals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">16.0</span><span class="p">]</span> <span class="c1"># g (g = 9.81 m/s^2)</span>
+    <span class="n">accel_indx</span> <span class="o">=</span> <span class="mi">0</span>                            
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">ACCEL_CONFIG</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">accel_config_sel</span><span class="p">[</span><span class="n">accel_indx</span><span class="p">]))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1"># interrupt register (related to overflow of data [FIFO])</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">INT_ENABLE</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gyro_config_vals</span><span class="p">[</span><span class="n">gyro_indx</span><span class="p">],</span><span class="n">accel_config_vals</span><span class="p">[</span><span class="n">accel_indx</span><span class="p">]</span></div>
+    
+<span class="k">def</span> <span class="nf">read_raw_bits</span><span class="p">(</span><span class="n">register</span><span class="p">):</span>
+    <span class="c1"># read accel and gyro values</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">read_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">read_byte_data</span><span class="p">(</span><span class="n">MPU6050_ADDR</span><span class="p">,</span> <span class="n">register</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># combine higha and low for unsigned bit value</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="p">((</span><span class="n">high</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">low</span><span class="p">)</span>
+    
+    <span class="c1"># convert to +- value</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">32768</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">-=</span> <span class="mi">65536</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+<span class="k">def</span> <span class="nf">mpu6050_conv</span><span class="p">():</span>
+    <span class="c1"># raw acceleration bits</span>
+    <span class="n">acc_x</span> <span class="o">=</span> <span class="n">read_raw_bits</span><span class="p">(</span><span class="n">ACCEL_XOUT_H</span><span class="p">)</span>
+    <span class="n">acc_y</span> <span class="o">=</span> <span class="n">read_raw_bits</span><span class="p">(</span><span class="n">ACCEL_YOUT_H</span><span class="p">)</span>
+    <span class="n">acc_z</span> <span class="o">=</span> <span class="n">read_raw_bits</span><span class="p">(</span><span class="n">ACCEL_ZOUT_H</span><span class="p">)</span>
+
+    <span class="c1"># raw temp bits</span>
+<span class="c1">##    t_val = read_raw_bits(TEMP_OUT_H) # uncomment to read temp</span>
+    
+    <span class="c1"># raw gyroscope bits</span>
+    <span class="n">gyro_x</span> <span class="o">=</span> <span class="n">read_raw_bits</span><span class="p">(</span><span class="n">GYRO_XOUT_H</span><span class="p">)</span>
+    <span class="n">gyro_y</span> <span class="o">=</span> <span class="n">read_raw_bits</span><span class="p">(</span><span class="n">GYRO_YOUT_H</span><span class="p">)</span>
+    <span class="n">gyro_z</span> <span class="o">=</span> <span class="n">read_raw_bits</span><span class="p">(</span><span class="n">GYRO_ZOUT_H</span><span class="p">)</span>
+
+    <span class="c1">#convert to acceleration in g and gyro dps</span>
+    <span class="n">a_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">acc_x</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">accel_sens</span>
+    <span class="n">a_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">acc_y</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">accel_sens</span>
+    <span class="n">a_z</span> <span class="o">=</span> <span class="p">(</span><span class="n">acc_z</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">accel_sens</span>
+
+    <span class="n">w_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">gyro_x</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">gyro_sens</span>
+    <span class="n">w_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">gyro_y</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">gyro_sens</span>
+    <span class="n">w_z</span> <span class="o">=</span> <span class="p">(</span><span class="n">gyro_z</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">gyro_sens</span>
+
+<span class="c1">##    temp = ((t_val)/333.87)+21.0 # uncomment and add below in return</span>
+    <span class="k">return</span> <span class="n">a_x</span><span class="p">,</span><span class="n">a_y</span><span class="p">,</span><span class="n">a_z</span><span class="p">,</span><span class="n">w_x</span><span class="p">,</span><span class="n">w_y</span><span class="p">,</span><span class="n">w_z</span>
+
+<span class="k">def</span> <span class="nf">AK8963_start</span><span class="p">():</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">AK8963_ADDR</span><span class="p">,</span><span class="n">AK8963_CNTL</span><span class="p">,</span><span class="mh">0x00</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">AK8963_bit_res</span> <span class="o">=</span> <span class="mb">0b0001</span> <span class="c1"># 0b0001 = 16-bit</span>
+    <span class="n">AK8963_samp_rate</span> <span class="o">=</span> <span class="mb">0b0110</span> <span class="c1"># 0b0010 = 8 Hz, 0b0110 = 100 Hz</span>
+    <span class="n">AK8963_mode</span> <span class="o">=</span> <span class="p">(</span><span class="n">AK8963_bit_res</span> <span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">)</span><span class="o">+</span><span class="n">AK8963_samp_rate</span> <span class="c1"># bit conversion</span>
+    <span class="n">bus</span><span class="o">.</span><span class="n">write_byte_data</span><span class="p">(</span><span class="n">AK8963_ADDR</span><span class="p">,</span><span class="n">AK8963_CNTL</span><span class="p">,</span><span class="n">AK8963_mode</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">AK8963_reader</span><span class="p">(</span><span class="n">register</span><span class="p">):</span>
+    <span class="c1"># read magnetometer values</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">read_byte_data</span><span class="p">(</span><span class="n">AK8963_ADDR</span><span class="p">,</span> <span class="n">register</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">read_byte_data</span><span class="p">(</span><span class="n">AK8963_ADDR</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+    <span class="c1"># combine higha and low for unsigned bit value    </span>
+    <span class="n">value</span> <span class="o">=</span> <span class="p">((</span><span class="n">high</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">low</span><span class="p">)</span>
+    <span class="c1"># convert to +- value</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">32768</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">-=</span> <span class="mi">65536</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+<span class="k">def</span> <span class="nf">AK8963_conv</span><span class="p">():</span>
+    <span class="c1"># raw magnetometer bits</span>
+
+    <span class="n">loop_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">mag_x</span> <span class="o">=</span> <span class="n">AK8963_reader</span><span class="p">(</span><span class="n">HXH</span><span class="p">)</span>
+        <span class="n">mag_y</span> <span class="o">=</span> <span class="n">AK8963_reader</span><span class="p">(</span><span class="n">HYH</span><span class="p">)</span>
+        <span class="n">mag_z</span> <span class="o">=</span> <span class="n">AK8963_reader</span><span class="p">(</span><span class="n">HZH</span><span class="p">)</span>
+
+        <span class="c1"># the next line is needed for AK8963</span>
+        <span class="c1">#if bin(bus.read_byte_data(AK8963_ADDR,AK8963_ST2))==&#39;0b10000&#39;:</span>
+        <span class="c1">#    break</span>
+        <span class="n">loop_count</span><span class="o">+=</span><span class="mi">1</span>
+        
+    <span class="c1">#convert to acceleration in g and gyro dps</span>
+    <span class="n">m_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag_x</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">mag_sens</span>
+    <span class="n">m_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag_y</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">mag_sens</span>
+    <span class="n">m_z</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag_z</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">**</span><span class="mf">15.0</span><span class="p">))</span><span class="o">*</span><span class="n">mag_sens</span>
+
+    <span class="k">return</span> <span class="n">m_x</span><span class="p">,</span><span class="n">m_y</span><span class="p">,</span><span class="n">m_z</span>
+
+<span class="c1"># MPU6050 Registers</span>
+<span class="n">MPU6050_ADDR</span> <span class="o">=</span> <span class="mh">0x68</span>
+<span class="n">PWR_MGMT_1</span>   <span class="o">=</span> <span class="mh">0x6B</span>
+<span class="n">SMPLRT_DIV</span>   <span class="o">=</span> <span class="mh">0x19</span>
+<span class="n">CONFIG</span>       <span class="o">=</span> <span class="mh">0x1A</span>
+<span class="n">GYRO_CONFIG</span>  <span class="o">=</span> <span class="mh">0x1B</span>
+<span class="n">ACCEL_CONFIG</span> <span class="o">=</span> <span class="mh">0x1C</span>
+<span class="n">INT_ENABLE</span>   <span class="o">=</span> <span class="mh">0x38</span>
+<span class="n">ACCEL_XOUT_H</span> <span class="o">=</span> <span class="mh">0x3B</span>
+<span class="n">ACCEL_YOUT_H</span> <span class="o">=</span> <span class="mh">0x3D</span>
+<span class="n">ACCEL_ZOUT_H</span> <span class="o">=</span> <span class="mh">0x3F</span>
+<span class="n">TEMP_OUT_H</span>   <span class="o">=</span> <span class="mh">0x41</span>
+<span class="n">GYRO_XOUT_H</span>  <span class="o">=</span> <span class="mh">0x43</span>
+<span class="n">GYRO_YOUT_H</span>  <span class="o">=</span> <span class="mh">0x45</span>
+<span class="n">GYRO_ZOUT_H</span>  <span class="o">=</span> <span class="mh">0x47</span>
+<span class="c1">#AK8963 registers</span>
+<span class="n">AK8963_ADDR</span>   <span class="o">=</span> <span class="mh">0x77</span>
+<span class="n">AK8963_ST1</span>    <span class="o">=</span> <span class="mh">0x02</span>
+<span class="n">HXH</span>          <span class="o">=</span> <span class="mh">0x04</span>
+<span class="n">HYH</span>          <span class="o">=</span> <span class="mh">0x06</span>
+<span class="n">HZH</span>          <span class="o">=</span> <span class="mh">0x08</span>
+<span class="n">AK8963_ST2</span>   <span class="o">=</span> <span class="mh">0x09</span>
+<span class="n">AK8963_CNTL</span>  <span class="o">=</span> <span class="mh">0x0A</span>
+<span class="n">mag_sens</span> <span class="o">=</span> <span class="mf">4900.0</span> <span class="c1"># magnetometer sensitivity: 4800 uT</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># start I2C driver</span>
+    <span class="n">bus</span> <span class="o">=</span> <span class="n">smbus</span><span class="o">.</span><span class="n">SMBus</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># start comm with i2c bus</span>
+    <span class="n">gyro_sens</span><span class="p">,</span><span class="n">accel_sens</span> <span class="o">=</span> <span class="n">MPU6050_start</span><span class="p">()</span> <span class="c1"># instantiate gyro/accel</span>
+    <span class="n">AK8963_start</span><span class="p">()</span> <span class="c1"># instantiate magnetometer</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">blender-motion-joystick</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wiring.html">Wiring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i2c.html">i2c Interfacing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i2c.html#module-joystick_reader">joystick_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blender.html">blender addon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thoughts.html">final thoughts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Karl Miller.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,595 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Blender Addon &mdash; blender-motion-joystick 1.0 documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="blender-motion-joystick 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Final Thoughts" href="thoughts.html"/>
+        <link rel="prev" title="i2c Interfacing" href="i2c.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> blender-motion-joystick </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i2c.html">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#module-joystick_reader">joystick_reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-__init__">joystick_control (the blender files)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a></li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <div class="section" id="blender-addon">
+<h1>Blender Addon<a class="headerlink" href="#blender-addon" title="Permalink to this headline">¶</a></h1>
+<p>Blender is written in C, but supports addons written in Python. Following the <a class="reference external" href="https://docs.blender.org/api/2.79/info_quickstart.html">official tutorial</a>, and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.</p>
+<p>Everything involved in the Blender addon portion of this project is contained in the <cite>__init__.py</cite> file. This file uses some top-level variables and functions and extends one Blender class, which is a <a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Operator</span></code></a>, which handles the menu experience.</p>
+<p>The full source code for <cite>__init__.py</cite> can be viewed here.</p>
+<p>The core of the logic that parses sensor data into object rotations is contained in the <cite>update_from_joystick</cite> function, which is executed by the update thread as the program runs. It converts readings from <cite>JoystickReader</cite>, based on user settings, into the appropriate rotations. Matrix rotations are used when the rotation mode is absolute and Euler rotations are used when the rotation mode is relative.</p>
+<p><a class="reference internal" href="#init__.update_from_joystick" title="__init__.update_from_joystick"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__.update_from_joystick()</span></code></a> is reproduced here:</p>
+<blockquote>
+<div><div class="highlight-python notranslate" id="main-func"><div class="highlight"><pre><span></span><span class="k">global</span> <span class="n">selected_objects</span>
+<span class="k">global</span> <span class="n">settings</span>
+<span class="k">global</span> <span class="n">j_reader</span>
+<span class="n">shrinkage</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;shrinkage&quot;</span><span class="p">]</span>
+<span class="n">movement_modifier</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement_shrinkage&quot;</span><span class="p">]</span>
+<span class="n">yaw_shrinkage</span> <span class="o">=</span> <span class="n">shrinkage</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">interval</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;update interval&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;averages&quot;</span><span class="p">]:</span>
+    <span class="n">get_func</span> <span class="o">=</span> <span class="n">j_reader</span><span class="o">.</span><span class="n">get_averages</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">get_func</span> <span class="o">=</span> <span class="n">j_reader</span><span class="o">.</span><span class="n">get_last</span>
+<span class="k">while</span> <span class="n">running</span><span class="p">:</span>
+    <span class="n">j_reader</span><span class="o">.</span><span class="n">get_vals_from_sensor</span><span class="p">()</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">get_func</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">obj3d</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]:</span>  <span class="c1"># if the top button is pressed</span>
+            <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;rotation type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Absolute&quot;</span><span class="p">:</span>  <span class="c1"># use operator for absolute rotations</span>
+                <span class="n">location</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+                <span class="n">location</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+                <span class="c1"># location is given as a vector and has to be a matrix for recomposition</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">to_4x4</span><span class="p">()</span>
+                <span class="c1"># rotation is given as a Quat and has to be a matrix for recomposition</span>
+                <span class="n">scale</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">scale</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="c1"># same with scale (a vector)</span>
+                <span class="n">new_rotation</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                <span class="c1"># start with a 0 rotation</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;yaw active&quot;</span><span class="p">]:</span>
+                    <span class="n">new_rotation</span> <span class="o">*=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s2">&quot;wy&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">yaw_shrinkage</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;pitch active&quot;</span><span class="p">]:</span>
+                    <span class="n">new_rotation</span> <span class="o">*=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="s2">&quot;wx&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;roll active&quot;</span><span class="p">]:</span>
+                    <span class="n">new_rotation</span> <span class="o">*=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="s2">&quot;wz&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">location</span> <span class="o">*</span> <span class="n">new_rotation</span> <span class="o">*</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="c1"># to perform absolute rotations, they have to be added before the existing rotation</span>
+                <span class="c1"># as the matrix is re-assembled from its components</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># perform relative rotations</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;yaw active&quot;</span><span class="p">]:</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">rotation_euler</span><span class="o">.</span><span class="n">rotate_axis</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wz&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">yaw_shrinkage</span><span class="p">)</span>  <span class="c1"># yaw</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;pitch active&quot;</span><span class="p">]:</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">rotation_euler</span><span class="o">.</span><span class="n">rotate_axis</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wx&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">)</span>  <span class="c1"># pitch</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;roll active&quot;</span><span class="p">]:</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">rotation_euler</span><span class="o">.</span><span class="n">rotate_axis</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wy&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">)</span>  <span class="c1"># roll</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;trigger&#39;</span><span class="p">]:</span>  <span class="c1"># if the trigger is pressed</span>
+            <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement forward&quot;</span><span class="p">]:</span>
+                <span class="n">forward_vector</span> <span class="o">=</span> <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_local</span><span class="o">.</span><span class="n">col</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># column major matrix, 3rd col is fwd vector</span>
+                <span class="n">new_vec</span> <span class="o">=</span> <span class="n">forward_vector</span> <span class="o">*</span> <span class="mi">1</span>  <span class="c1"># just copies the vector</span>
+                <span class="n">new_vec</span><span class="o">.</span><span class="n">resize_3d</span><span class="p">()</span>  <span class="c1"># make it 3 instead of 4</span>
+                <span class="n">new_vec</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+                <span class="n">new_vec</span> <span class="o">*=</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wx&#39;</span><span class="p">]</span>  <span class="c1"># pitch controls forward/backward when trig pressed</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">z</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+            <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement side&quot;</span><span class="p">]:</span>
+                <span class="n">left_right_vector</span> <span class="o">=</span> <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_local</span><span class="o">.</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">new_vec</span> <span class="o">=</span> <span class="n">left_right_vector</span> <span class="o">*</span> <span class="mi">1</span>
+                <span class="n">new_vec</span><span class="o">.</span><span class="n">resize_3d</span><span class="p">()</span>
+                <span class="n">new_vec</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+                <span class="n">new_vec</span> <span class="o">*=</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wz&#39;</span><span class="p">]</span>  <span class="c1"># yaw controls left/right when trig pressed</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">z</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="module-__init__">
+<span id="joystick-control-the-blender-files"></span><h2>joystick_control (the blender files)<a class="headerlink" href="#module-__init__" title="Permalink to this headline">¶</a></h2>
+<p><cite>joystick_control/.__init__</cite> contains all the references that interact with Blender, including the menu and
+functions which modify the selected objects.</p>
+<p>The folder <cite>joystick_control</cite> should be placed in <cite>Blender/scripts/addons</cite> directory. It will then appear in Blender as
+<cite>Object: Motion Sensor Joystick Controls’</cite> in the list of available addons in the settings &gt; addons menu.</p>
+<p>Once installed, pressing spacebar and searching for <cite>Open Joystick Menu</cite> provides access to the in-blender User Interface.</p>
+<dl class="py data">
+<dt id="init__.bl_info">
+<span id="__init__.bl_info"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">bl_info</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'author':</span> <span class="pre">'klm127',</span> <span class="pre">'blender':</span> <span class="pre">(2,</span> <span class="pre">70,</span> <span class="pre">0),</span> <span class="pre">'category':</span> <span class="pre">'Object',</span> <span class="pre">'description':</span> <span class="pre">'Create</span> <span class="pre">links</span> <span class="pre">to</span> <span class="pre">acceleration</span> <span class="pre">sensor',</span> <span class="pre">'location':</span> <span class="pre">'Spacebar;</span> <span class="pre">search',</span> <span class="pre">'name':</span> <span class="pre">'Motion</span> <span class="pre">Sensor</span> <span class="pre">Joystick</span> <span class="pre">Controls',</span> <span class="pre">'version':</span> <span class="pre">(0,</span> <span class="pre">1),</span> <span class="pre">'warning':</span> <span class="pre">''}</span></em><a class="headerlink" href="#init__.bl_info" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Envar</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>bl_info sets the addon information. Every blender addon file module must start with a dict named bl_info.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="init__.running">
+<span id="__init__.running"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">running</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#init__.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether it is currently looping and updating the 3d render.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="init__.run_thread">
+<span id="__init__.run_thread"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">run_thread</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.run_thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>A thread. Initialized to None - when the program is running, references active update thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Thread" title="(in Python v3.9)">threading.Thread</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="init__.selected_objects">
+<span id="__init__.selected_objects"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">selected_objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#init__.selected_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>The objects user currently has selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list&lt;<a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Object</span></code></a>&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="init__.j_reader">
+<span id="__init__.j_reader"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">j_reader</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.j_reader" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Joystick reader
+:type: JoystickReader</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="init__.settings">
+<span id="__init__.settings"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">settings</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'averages':</span> <span class="pre">True,</span> <span class="pre">'keep</span> <span class="pre">vals':</span> <span class="pre">10,</span> <span class="pre">'movement</span> <span class="pre">forward':</span> <span class="pre">True,</span> <span class="pre">'movement</span> <span class="pre">side':</span> <span class="pre">True,</span> <span class="pre">'movement_modifier':</span> <span class="pre">0.05,</span> <span class="pre">'pitch</span> <span class="pre">active':</span> <span class="pre">True,</span> <span class="pre">'roll</span> <span class="pre">active':</span> <span class="pre">True,</span> <span class="pre">'rotation</span> <span class="pre">type':</span> <span class="pre">'Absolute',</span> <span class="pre">'shrinkage':</span> <span class="pre">0.03,</span> <span class="pre">'update</span> <span class="pre">interval':</span> <span class="pre">0.08,</span> <span class="pre">'weight':</span> <span class="pre">0,</span> <span class="pre">'yaw</span> <span class="pre">active':</span> <span class="pre">True}</span></em><a class="headerlink" href="#init__.settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="init__.SensorMenu">
+<span id="__init__.SensorMenu"></span><em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">SensorMenu</span></code><a class="reference internal" href="_modules/__init__.html#SensorMenu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.SensorMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>SensorMenu defines the popup menu that appears in Blender when the Command is run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Operator</span></code></a></p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="init__.SensorMenu.bl_idname">
+<span id="__init__.SensorMenu.bl_idname"></span><code class="sig-name descname"><span class="pre">bl_idname</span></code><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">'object.sensormenu'</span></em><a class="headerlink" href="#init__.SensorMenu.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required name for blender reference.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.bl_label">
+<span id="__init__.SensorMenu.bl_label"></span><code class="sig-name descname"><span class="pre">bl_label</span></code><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">'Open</span> <span class="pre">Joystick</span> <span class="pre">Menu'</span></em><a class="headerlink" href="#init__.SensorMenu.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required label for command search.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.running">
+<span id="__init__.SensorMenu.running"></span><code class="sig-name descname"><span class="pre">running</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selection data controlling whether addon should be updating objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.trigger_pin">
+<span id="__init__.SensorMenu.trigger_pin"></span><code class="sig-name descname"><span class="pre">trigger_pin</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.trigger_pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selection data controlling what GPIO pin Trigger button is wired to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.IntProperty.html#bpy.types.IntProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.IntProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.top_pin">
+<span id="__init__.SensorMenu.top_pin"></span><code class="sig-name descname"><span class="pre">top_pin</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.top_pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selection data controlling what GPIO pin Top button is wired to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.IntProperty.html#bpy.types.IntProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.IntProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.update_interval">
+<span id="__init__.SensorMenu.update_interval"></span><code class="sig-name descname"><span class="pre">update_interval</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.update_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selection data controlling how long between sensor readings and updates.</p>
+<p>Minimum 0.02, maximum 1 second.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.FloatProperty.html#bpy.types.FloatProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.FloatProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.averages">
+<span id="__init__.SensorMenu.averages"></span><code class="sig-name descname"><span class="pre">averages</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.averages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether sensor reads should be averaged or just the last read.</p>
+<p>Default is True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.keepvals">
+<span id="__init__.SensorMenu.keepvals"></span><code class="sig-name descname"><span class="pre">keepvals</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.keepvals" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many values the sensor should store for averaging.</p>
+<p>Default is 10.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.IntProperty.html#bpy.types.IntProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.IntProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.weight">
+<span id="__init__.SensorMenu.weight"></span><code class="sig-name descname"><span class="pre">weight</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>How much to weight the last reading.</p>
+<p>Default is 10.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.IntProperty.html#bpy.types.IntProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.IntProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.shrinkage">
+<span id="__init__.SensorMenu.shrinkage"></span><code class="sig-name descname"><span class="pre">shrinkage</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.shrinkage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies gyroscope readings by this fraction to reduce sensitivity.</p>
+<p>Minimum is 0.01. Maximum is 0.5</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.FloatProperty.html#bpy.types.FloatProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.FloatProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.movement_shrinkage">
+<span id="__init__.SensorMenu.movement_shrinkage"></span><code class="sig-name descname"><span class="pre">movement_shrinkage</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.movement_shrinkage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies gyroscope readings by this fraction when performing translations (during trigger press).</p>
+<p>This is more sensitive than rotations are, so it needs to be reduced more.</p>
+<p>Minimum is 0.0001. Maximum is 0.5</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.FloatProperty.html#bpy.types.FloatProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.FloatProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.yaw_enabled">
+<span id="__init__.SensorMenu.yaw_enabled"></span><code class="sig-name descname"><span class="pre">yaw_enabled</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.yaw_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether yawing the joystick causes the selected object to yaw when running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.pitch_enabled">
+<span id="__init__.SensorMenu.pitch_enabled"></span><code class="sig-name descname"><span class="pre">pitch_enabled</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.pitch_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether pitching the joystick causes the selected object to pitch when running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.roll_enabled">
+<span id="__init__.SensorMenu.roll_enabled"></span><code class="sig-name descname"><span class="pre">roll_enabled</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.roll_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether rolling the joystick causes the selected object to roll when running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.movement_forward">
+<span id="__init__.SensorMenu.movement_forward"></span><code class="sig-name descname"><span class="pre">movement_forward</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.movement_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether pitching the joystick forward/back with the trigger pressed causes the object to move in its forward/back direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.movement_side">
+<span id="__init__.SensorMenu.movement_side"></span><code class="sig-name descname"><span class="pre">movement_side</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.movement_side" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether rolling the joystick with the trigger pressed causes the object to move in its left/right direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.BoolProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="init__.SensorMenu.rotation_type">
+<span id="__init__.SensorMenu.rotation_type"></span><code class="sig-name descname"><span class="pre">rotation_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.SensorMenu.rotation_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to rotate the object relatively or on its absolute axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.EnumProperty.html#bpy.types.EnumProperty" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.EnumProperty</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="init__.SensorMenu.execute">
+<span id="__init__.SensorMenu.execute"></span><code class="sig-name descname"><span class="pre">execute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#SensorMenu.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.SensorMenu.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executed when “OK” is pressed on the popup menu.</p>
+<p>Sends user selection to <a class="reference internal" href="#init__.main" title="__init__.main"><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> for execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Context.html#bpy.types.Context" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Context</span></code></a>) – The blender context, referencing the selection and active window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="init__.SensorMenu.invoke">
+<span id="__init__.SensorMenu.invoke"></span><code class="sig-name descname"><span class="pre">invoke</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#SensorMenu.invoke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.SensorMenu.invoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executed when addon is executed from the command selector (spacebar in Blender).</p>
+<p>Creates the <a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.WindowManager.html#bpy.types.WindowManager" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.WindowManager</span></code></a>, then causes draw to execute based on SensorMenu attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Context.html#bpy.types.Context" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Context</span></code></a>) – The blender context, referencing the selection and active window.</p></li>
+<li><p><strong>event</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="init__.SensorMenu.draw">
+<span id="__init__.SensorMenu.draw"></span><code class="sig-name descname"><span class="pre">draw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#SensorMenu.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.SensorMenu.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the menu is opened.</p>
+<p>Gets the selected objects. Reads user selections into settings.</p>
+<p>Creates a new update thread if running is active which begins reading sensor info and applying it to blender objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Context.html#bpy.types.Context" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Context</span></code></a>) – The blender context, referencing the selection and active window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="init__.main">
+<span id="__init__.main"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called after “OK” is pressed on the UI Window. Parses user selection to control program behavior.</p>
+<p>Starts the update thread if one doesn’t exist and the user selected “running”.</p>
+<p>Stops and deletes the update thread if one does exist and the user did not select “running”.</p>
+<p>The thread executes <a class="reference internal" href="#init__.update_from_joystick" title="__init__.update_from_joystick"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_from_joystick()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Context.html#bpy.types.Context" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Context</span></code></a>) – The blender context, referencing the selection and active window.</p></li>
+<li><p><strong>kw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Represents user selection</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="init__.update_from_joystick">
+<span id="__init__.update_from_joystick"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">update_from_joystick</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#update_from_joystick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.update_from_joystick" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is what is executed by <cite>run_thread</cite> every update interval.</p>
+<p>Gets raw data from the joystick reader and applies it to the selected objects in Blender.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="init__.register">
+<span id="__init__.register"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required for blender addons. Called by Blender to register classes.</p>
+<p>In this case, just registers SensorMenu.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="init__.unregister">
+<span id="__init__.unregister"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">unregister</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/__init__.html#unregister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#init__.unregister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required for blender addons. Called by Blender when addon is deactivated.</p>
+<p>In this case, just unregisters SensorMenu.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="thoughts.html" class="btn btn-neutral float-right" title="Final Thoughts">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="i2c.html" class="btn btn-neutral" title="i2c Interfacing"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Karl Miller.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

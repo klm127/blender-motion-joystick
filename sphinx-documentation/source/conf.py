@@ -13,9 +13,6 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../joystick_control'))
-# sys.path.insert(0, os.path.abspath('../../joystick_control'))
-sys.path.insert(1, 'C:/Program Files/Blender Foundation/Blender/2.79/scripts/modules/bpy')
-sys.path.insert(2, 'C:/Program Files/Blender Foundation/Blender/2.79/scripts/modules/')
 
 
 # -- Project information -----------------------------------------------------
@@ -35,13 +32,22 @@ release = '1.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.githubpages',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.mathjax'
 ]
+autodoc_member_order = 'bysource'
 
 # lets ref to python3
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
-                       'smbus': ('https://smbus2.readthedocs.io/en/latest/', None),
-                       'bpy': ('https://docs.blender.org/api/2.79/',None)}
+                       'smbus': ('https://smbus2.readthedocs.io/en/latest', None),
+                       #'bpy': ('extrobject/', None),
+                       #'fake_bpy279': ('extrobject/',None)
+                       'blender': ('https://docs.blender.org/api/2.79',None),
+                       'bpy': ('https://docs.blender.org/api/2.79',None),
+                       'fake_bpy279': ('https://docs.blender.org/api/2.79',None)
+                       }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -57,7 +63,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_pdj_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
