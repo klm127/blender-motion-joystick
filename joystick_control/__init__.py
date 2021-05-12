@@ -90,8 +90,9 @@ The objects user currently has selected.
 """
 j_reader = None
 """
-The Joystick reader
-:type: JoystickReader
+The Joystick reader, created on first execution.
+
+:type: :py:class:`joystick_reader.JoystickReader`
 """
 settings = {
     "update interval": 0.08,

@@ -1,11 +1,15 @@
 Blender Addon
 =============
 
+How it's implemented
+--------------------
+
 Blender is written in C, but supports addons written in Python. Following the `official tutorial <https://docs.blender.org/api/2.79/info_quickstart.html>`_, and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.
 
-Everything involved in the Blender addon portion of this project is contained in the `__init__.py` file. This file uses some top-level variables and functions and extends one Blender class, which is a :py:class:`bpy.types.Operator`, which handles the menu experience.
+Everything involved in the Blender addon portion of this project is contained in the `__init__.py` file. This file uses some top-level variables and functions and extends one Blender class, :py:class:`bpy.types.Operator`, to create the menu experience.
 
-The full source code for `__init__.py` can be viewed here.
+
+`Full Source Code for __init__.py available here. <_modules/__init__.html>`_
 
 The core of the logic that parses sensor data into object rotations is contained in the `update_from_joystick` function, which is executed by the update thread as the program runs. It converts readings from `JoystickReader`, based on user settings, into the appropriate rotations. Matrix rotations are used when the rotation mode is absolute and Euler rotations are used when the rotation mode is relative.
 

@@ -1,3 +1,13 @@
+"""
+Interfaces with the mpu9250_i2c.py script. :py:class:`JoystickReader` retrieves values from that script, and stores them in :py:class:`Axis` objects.
+
+The `Axis` objects average values as they come in based on their parameters.
+
+When the Blender addon needs readings, `JoystickReader` collects the averages from each `Axis` and returns them as a dictionary.
+
+"""
+
+
 import random # just for testing, gen random vals
 
 
@@ -24,31 +34,22 @@ class Axis:
         self.name = name
         """ 
         name of the axis 
-        
-        :type: str
         """
         self.vals = []
         """ 
         last few values recorded 
-        
-        :type: list
         """
         self.average = 0.0
         """ 
         current average 
-        
-        :type: float
         """
         self.keep_vals = keep_vals
         """ 
         number of values to keep 
-        
-        :type: int
         """
         self.weight=weight
         """ 
         weights the last reading 
-        :type: float
         """
         
     def add_val(self, val):
@@ -77,9 +78,6 @@ class Axis:
         return self.vals[len(self.vals)-1]
 
     def zero(self):
-        """
-        Clear stored values and zero average.
-        """
         self.vals = []
         self.average = 0
 
@@ -178,6 +176,9 @@ class JoystickReader:
     def get_round_of_random_values(self): # for testing without RPi.GPIO
         """
         Adds a value between -5 and 5 to each Axis.
+
+        Used for debugging Blender addon outside of Raspberry Pi environment.
+
         """
         rand_min = -5
         rand_max = 5

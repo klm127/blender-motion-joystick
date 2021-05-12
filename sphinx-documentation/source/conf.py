@@ -35,7 +35,8 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.githubpages',
     'sphinx.ext.viewcode',
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
+    'sphinx.ext.graphvis',
 ]
 autodoc_member_order = 'bysource'
 

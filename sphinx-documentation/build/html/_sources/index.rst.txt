@@ -18,7 +18,6 @@ When the blender addon is installed and running, wrist-motion data collected as 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    intro
    wiring

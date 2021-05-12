@@ -62,18 +62,31 @@
           
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#housing">Housing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-it-does">What it does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#use-case">Use Case</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i2c.html">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#how-it-s-implemented">How it’s implemented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
 <li class="toctree-l2"><a class="reference internal" href="i2c.html#module-joystick_reader">joystick_reader</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-s-implemented">How it’s implemented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-__init__">joystick_control (the blender files)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thoughts.html#project-challenges">Project Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thoughts.html#future-versions">Future Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thoughts.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
 
           
@@ -116,9 +129,11 @@
 	    <div id="content" class="hfeed entry-container hentry">
   <div class="section" id="blender-addon">
 <h1>Blender Addon<a class="headerlink" href="#blender-addon" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-it-s-implemented">
+<h2>How it’s implemented<a class="headerlink" href="#how-it-s-implemented" title="Permalink to this headline">¶</a></h2>
 <p>Blender is written in C, but supports addons written in Python. Following the <a class="reference external" href="https://docs.blender.org/api/2.79/info_quickstart.html">official tutorial</a>, and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.</p>
-<p>Everything involved in the Blender addon portion of this project is contained in the <cite>__init__.py</cite> file. This file uses some top-level variables and functions and extends one Blender class, which is a <a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Operator</span></code></a>, which handles the menu experience.</p>
-<p>The full source code for <cite>__init__.py</cite> can be viewed here.</p>
+<p>Everything involved in the Blender addon portion of this project is contained in the <cite>__init__.py</cite> file. This file uses some top-level variables and functions and extends one Blender class, <a class="reference external" href="https://docs.blender.org/api/2.79/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.79.0 855d2955c49 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Operator</span></code></a>, to create the menu experience.</p>
+<p><a class="reference external" href="_modules/__init__.html">Full Source Code for __init__.py available here.</a></p>
 <p>The core of the logic that parses sensor data into object rotations is contained in the <cite>update_from_joystick</cite> function, which is executed by the update thread as the program runs. It converts readings from <cite>JoystickReader</cite>, based on user settings, into the appropriate rotations. Matrix rotations are used when the rotation mode is absolute and Euler rotations are used when the rotation mode is relative.</p>
 <p><a class="reference internal" href="#init__.update_from_joystick" title="__init__.update_from_joystick"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__.update_from_joystick()</span></code></a> is reproduced here:</p>
 <blockquote>
@@ -187,6 +202,7 @@
 </pre></div>
 </div>
 </div></blockquote>
+</div>
 <div class="section" id="module-__init__">
 <span id="joystick-control-the-blender-files"></span><h2>joystick_control (the blender files)<a class="headerlink" href="#module-__init__" title="Permalink to this headline">¶</a></h2>
 <p><cite>joystick_control/.__init__</cite> contains all the references that interact with Blender, including the menu and
@@ -240,8 +256,12 @@ functions which modify the selected objects.</p>
 <dl class="py data">
 <dt id="init__.j_reader">
 <span id="__init__.j_reader"></span><code class="sig-prename descclassname"><span class="pre">__init__.</span></code><code class="sig-name descname"><span class="pre">j_reader</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#init__.j_reader" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Joystick reader
-:type: JoystickReader</p>
+<dd><p>The Joystick reader, created on first execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="i2c.html#joystick_reader.JoystickReader" title="joystick_reader.JoystickReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">joystick_reader.JoystickReader</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py data">

@@ -1,1 +1,0 @@
-.. autofunction:: joystick_reader.JoystickReader.get_averages

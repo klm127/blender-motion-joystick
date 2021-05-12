@@ -1,6 +1,0 @@
-
-.. DANGER::
-   Beware killer rabbits!
-
-.. HINT::
-   That's the way I like it!

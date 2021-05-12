@@ -58,20 +58,34 @@
 	
           
           
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#housing">Housing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-it-does">What it does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#use-case">Use Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#installation-instructions">Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#using-this-documentation">Using this Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i2c.html">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#how-it-s-implemented">How it’s implemented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
 <li class="toctree-l2"><a class="reference internal" href="i2c.html#module-joystick_reader">joystick_reader</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="blender.html">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#how-it-s-implemented">How it’s implemented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="blender.html#module-__init__">joystick_control (the blender files)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thoughts.html">final thoughts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thoughts.html#project-challenges">Project Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thoughts.html#future-versions">Future Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thoughts.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
 
           
@@ -119,6 +133,7 @@
  <a href="#_"><strong>_</strong></a>
  | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
@@ -155,12 +170,22 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="i2c.html#mpu9250_i2c.ACCEL_CONFIG">ACCEL_CONFIG (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.accel_sens">accel_sens (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.ACCEL_XOUT_H">ACCEL_XOUT_H (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.ACCEL_YOUT_H">ACCEL_YOUT_H (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.ACCEL_ZOUT_H">ACCEL_ZOUT_H (in module mpu9250_i2c)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="i2c.html#joystick_reader.Axis.add_val">add_val() (joystick_reader.Axis method)</a>
 </li>
       <li><a href="i2c.html#joystick_reader.Axis.average">average (joystick_reader.Axis attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.SensorMenu.averages">averages (__init__.SensorMenu attribute)</a>
 </li>
       <li><a href="i2c.html#joystick_reader.JoystickReader.axes">axes (joystick_reader.JoystickReader attribute)</a>
@@ -175,11 +200,21 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.SensorMenu.bl_idname">bl_idname (__init__.SensorMenu attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.bl_info">bl_info (in module __init__)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.SensorMenu.bl_label">bl_label (__init__.SensorMenu attribute)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.bus">bus (in module mpu9250_i2c)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="i2c.html#mpu9250_i2c.CONFIG">CONFIG (in module mpu9250_i2c)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -211,8 +246,6 @@
 </li>
       <li><a href="i2c.html#joystick_reader.JoystickReader.get_last">get_last() (joystick_reader.JoystickReader method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="i2c.html#joystick_reader.Axis.get_last_val">get_last_val() (joystick_reader.Axis method)</a>
 </li>
       <li><a href="i2c.html#joystick_reader.JoystickReader.get_round_of_random_values">get_round_of_random_values() (joystick_reader.JoystickReader method)</a>
@@ -220,10 +253,26 @@
       <li><a href="i2c.html#joystick_reader.JoystickReader.get_vals_from_sensor">get_vals_from_sensor() (joystick_reader.JoystickReader method)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="i2c.html#mpu9250_i2c.GYRO_CONFIG">GYRO_CONFIG (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.gyro_sens">gyro_sens (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.GYRO_XOUT_H">GYRO_XOUT_H (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.GYRO_YOUT_H">GYRO_YOUT_H (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.GYRO_ZOUT_H">GYRO_ZOUT_H (in module mpu9250_i2c)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="i2c.html#mpu9250_i2c.INT_ENABLE">INT_ENABLE (in module mpu9250_i2c)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.SensorMenu.invoke">invoke() (__init__.SensorMenu method)</a>
 </li>
@@ -289,13 +338,17 @@
         <li><a href="i2c.html#module-mpu9250_i2c">mpu9250_i2c</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.SensorMenu.movement_forward">movement_forward (__init__.SensorMenu attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="blender.html#init__.SensorMenu.movement_shrinkage">movement_shrinkage (__init__.SensorMenu attribute)</a>
 </li>
       <li><a href="blender.html#init__.SensorMenu.movement_side">movement_side (__init__.SensorMenu attribute)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.MPU6050_ADDR">MPU6050_ADDR (in module mpu9250_i2c)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.mpu6050_conv">mpu6050_conv() (in module mpu9250_i2c)</a>
 </li>
       <li><a href="i2c.html#mpu9250_i2c.MPU6050_start">MPU6050_start() (in module mpu9250_i2c)</a>
 </li>
@@ -323,19 +376,25 @@
       <li><a href="blender.html#init__.SensorMenu.pitch_enabled">pitch_enabled (__init__.SensorMenu attribute)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="i2c.html#mpu9250_i2c.PWR_MGMT_1">PWR_MGMT_1 (in module mpu9250_i2c)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="i2c.html#mpu9250_i2c.read_raw_bits">read_raw_bits() (in module mpu9250_i2c)</a>
+</li>
       <li><a href="blender.html#init__.register">register() (in module __init__)</a>
 </li>
       <li><a href="blender.html#init__.SensorMenu.roll_enabled">roll_enabled (__init__.SensorMenu attribute)</a>
 </li>
-      <li><a href="blender.html#init__.SensorMenu.rotation_type">rotation_type (__init__.SensorMenu attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="blender.html#init__.SensorMenu.rotation_type">rotation_type (__init__.SensorMenu attribute)</a>
+</li>
       <li><a href="blender.html#init__.run_thread">run_thread (in module __init__)</a>
 </li>
       <li><a href="blender.html#init__.SensorMenu.running">running (__init__.SensorMenu attribute)</a>
@@ -359,6 +418,8 @@
       <li><a href="blender.html#init__.settings">settings (in module __init__)</a>
 </li>
       <li><a href="blender.html#init__.SensorMenu.shrinkage">shrinkage (__init__.SensorMenu attribute)</a>
+</li>
+      <li><a href="i2c.html#mpu9250_i2c.SMPLRT_DIV">SMPLRT_DIV (in module mpu9250_i2c)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -419,10 +480,6 @@
 
 <h2 id="Z">Z</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="i2c.html#joystick_reader.Axis.zero">zero() (joystick_reader.Axis method)</a>
-</li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="i2c.html#joystick_reader.JoystickReader.zero_gyro">zero_gyro() (joystick_reader.JoystickReader method)</a>
 </li>
