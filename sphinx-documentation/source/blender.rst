@@ -11,19 +11,17 @@ References
 How it's implemented
 --------------------
 
-Blender is written in C, but supports addons written in Python. By Following the addon tutorial and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.
+Blender is written in C, but supports addons written in Python. By following the addon tutorial and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.
 
-Everything involved in the Blender addon portion of this project is contained in the `__init__.py` file. This file uses some top-level variables and functions and extends one Blender class, :py:class:`bpy.types.Operator`, to create the menu experience.
-
-Blender requires some module-level definitions in the `__init__.py` file to read the addon. :py:attr:`bl_info <__init__.bl_info>` tells Blender where to find the addon in the selections, and what it should be named. :py:attr:`bl_idname <__init__.bl_idname>` tells Blender the ID. :py:attr:`bl_label <__init__.bl_label>` gives the label as it will appear in the command search.
+Everything involved in the Blender addon portion of this project is contained in the `__init__.py` file. It includes a module-level definition, :py:attr:`bl_info <__init__.bl_info>`, which tells Blender where to place the addon in the menus and what it should be named, some module level functions for managing the update thread, and one class, :py:class:`SensorMenu <__init__.SensorMenu>`, which extends a blender :py:class:`Operator bpy.types.Operator` to create the menu experience.
 
 
 The Menu
 --------
 
-I wrote a class called :py:class:`SensorMenu <__init__.SensorMenu>` to manage the blender menu. This class extends a blender class called :py:class:`Operator <bpy.types.Operator>`. Operators are commands that can be executed in Blender by pressing spacebar, searching for the command, and hitting enter. Before they take effect, a menu may be displayed to the user so they can adjust the settings of their command before it takes effect.
+:py:class:`SensorMenu <__init__.SensorMenu>` manages the blender menu. It class extends a blender class called :py:class:`Operator <bpy.types.Operator>`. Operators are commands that can be executed in Blender by pressing spacebar, searching for the command, and hitting enter. Before they take effect, a menu may be displayed to the user so they can adjust the settings of their command before it takes effect.
 
-`SensorMenu` has class-level attributes that describe each of the menu options and the associated data type. These use defined by blender 'Property' objects, such as :py:class:`IntProperty <bpy.types.IntProperty>`.
+`SensorMenu` has class-level attributes that describe each of the menu options and the associated data type. These use 'Property' objects as defined by Blender, such as :py:class:`IntProperty <bpy.types.IntProperty>`.
 
 .. code-block:: python
    :caption: Example IntProperty
@@ -56,15 +54,59 @@ When the class is selected by the user from the command selected :py:func:`Senso
     interval_select.prop(self, "update_interval")
 
 
+Execute
+-------
+When the user presses ok on the menu, :py:func:`SensorMenu.execute <__init__.SensorMenu.execute>` is called. This function calls :py:class:`self.as_keywords <bpy.types.Operator>` to get all the user menu selections as a dictionary, then passes that dictionary to the `main` function with the blender context.
+
+:py:func:`main <__init__.main>` determines what should happen based on what the user selected. The most important selection is **running**, which is a `BoolProperty` that appears as a checkbox on the menu. If that item is selected, the update thread is created and started and if it is unselected, the update thread is stopped.
+
+.. code-block:: python
+   :caption: Example starting/ending the update thread
+   :name: start thread
+
+    global run_thread, running
+    run_selection = kw_copy.pop('running')
+    # ...
+    if run_selection:
+        if not running: # create the update thread
+            running = True
+            run_thread = threading.Thread(target=update_from_joystick)
+            run_thread.start()
+        else:
+            pass
+    else:
+        running = False
+        if run_thread:
+            run_thread.join() # destroy the update thread
+            run_thread = None
 
 Rotations
 ---------
 
-The core of the logic that parses sensor data into object rotations is contained in the `update_from_joystick` function, which is executed by the update thread as the program runs. It converts readings from `JoystickReader`, based on user settings, into the appropriate rotations. Matrix rotations are used when the rotation mode is absolute and Euler rotations are used when the rotation mode is relative.
+The core of the logic that parses sensor data into object rotations is contained in the :py:func:`update_from_joystick <__init__.update_from_joystick>` function, which is executed by the update thread as the program runs. It converts readings from :py:class:`JoystickReader <joystick_reader.JoystickReader>`, based on user settings, into the appropriate rotations. Matrix rotations are used when the rotation mode is absolute and Euler rotations are used when the rotation mode is relative.
+
+Each update, if the program is running, the thread tells `JoystickReader` to get a round of values from the sensor then retrieves the rolling averages (or last value, depending on menu settings) from it.
+
+If the retrieved values indicate that the user is pressing the top button on the joystick, the retrieved values are used to apply rotations to every object the user selected at the time the menu was executed.
+
+If the user had set the rotation mode to Absolute, the objects will be rotated along the world axes in Blender. So pitching the joystick forward, in rotation mode absolute, always causes selected objects to rotate on the world's X axis. To accomplish this, matrix math had to be used. Each object has a world matrix which is related to its location, rotation, and scale. The world matrix is first decomposed into its inner values by calling :py:func:`decompose <mathutils.Matrix.decompose>` on the objects :py:class:`matrix_world <mathutils.Matrix>`.
+
+`decompose` returns a :py:class:`Vector <mathutils.Vector>` for the object translation, a :py:class:`Quaternion <mathutils.Quaternion>` for the object rotation, and a :py:class:`Vector <mathutils.Vector>` for the object scale. Each of these objects has functions which can convert them to Matrix objects, and they are all converted to Matrices.
+
+Next, a new :py:class:`Matrix <mathutils.Matrix>` called `new_rotation` is initialized to represent the user-input rotation change. For each axis, a new Matrix is created and `new_rotation` is reassigned to the value of itself multiplied by that new matrix.
+
+A new world matrix for the object is then assembled by matrix multiplying:
+
+`new world matrix = original location * new rotation * old rotation * old scale`
+
+For relative rotations, the change can be applied by calling `rotate_axis` function of the :py:class:`rotation_euler <mathutils.Euler>` property of the :py:class`3DObject <bpy.types.Object>` being manipulated and passing in the relative axis.
+
+If the user is pressing the trigger button, the 3d object(s) will also change position based on joystick movement. Pitching forward and back moves the objects forward and back relatively. Their forward vectors are found by taking the second column of the object world matrix, which is a column-major matrix. That vector is multiplied by the change in pitch. Each component of that 3d vector is added to the object's location property to move it forward and backward. The process for moving the object side to side as the joystick yaws is similar, except the first (index 0) column of the world matrix is taken to find the x vector.
+
 
 :py:func:`__init__.update_from_joystick` is reproduced here:
 
- .. code-block:: python
+.. code-block:: python
     :name: main_func
 
     global selected_objects

@@ -33,7 +33,7 @@ Installation Instructions
 -------------------------
 
 #. Wire the joystick by following the Wiring guide.
-#. Install Blender on a Raspberry Pi by running `sudo apt-get Blender`
+#. Install Blender on a Raspberry Pi by running `sudo apt-get blender`
 #. Copy the folder `joystick_control` into the `blender/scripts/addons` directory.
 #. Copy `RPi.GPIO` and `smbus` from your home python directory to `blender/modules/lib`
 #. Open Blender 2.7.9

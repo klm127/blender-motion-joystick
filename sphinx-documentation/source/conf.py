@@ -50,7 +50,8 @@ intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
                        #'fake_bpy279': ('extrobject/',None)
                        'blender': ('https://docs.blender.org/api/2.79',None),
                        'bpy': ('https://docs.blender.org/api/2.79',None),
-                       'fake_bpy279': ('https://docs.blender.org/api/2.79',None)
+                       'fake_bpy279': ('https://docs.blender.org/api/2.79',None),
+                       'mathutils': ('https://docs.blender.org/api/2.79',None)
                        }
 
 # Add any paths that contain templates here, relative to this directory.
