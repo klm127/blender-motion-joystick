@@ -51,6 +51,8 @@ Using this Documentation
 
 This documentation was made with `Sphinx <https://www.sphinx-doc.org/en/master/index.html>`_. Much of it was generated from docstrings in the source code.
 
+The wiring diagram was made with the `Graphviz <https://graphviz.org/>`_ plugin for Sphinx.
+
 Dependent libraries have been incorporated into the Sphinx documentation generator, so links to outside documentation (such as for :py:mod:`smbus2` and :py:mod:`bpy`) work, if the reader desires further information about the dependencies.
 
 Documented objects all have links next to them to the source code, and the source code links back to where the object is documented.

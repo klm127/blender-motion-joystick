@@ -77,7 +77,7 @@ def read_raw_bits(register):
 
     :param register: The high byte of a sensor read register.
     :type register: byte
-    :return: The sensor reading.
+    :return: The sensor reading, 16 bits.
     :rtype: int
     """
     # read accel and gyro values

@@ -1,15 +1,64 @@
 Blender Addon
 =============
 
+References
+----------
+
+`Official Blender Addon Tutorial <https://docs.blender.org/api/2.79/info_quickstart.html>`_
+
+`Full Source Code for __init__.py available here. <_modules/__init__.html>`_
+
 How it's implemented
 --------------------
 
-Blender is written in C, but supports addons written in Python. Following the `official tutorial <https://docs.blender.org/api/2.79/info_quickstart.html>`_, and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.
+Blender is written in C, but supports addons written in Python. By Following the addon tutorial and referencing other addons, I was able to construct a simple user interface for this project in Blender 2.7.9. Blender 2.7.9 is the latest version supported on the Raspberry Pi.
 
 Everything involved in the Blender addon portion of this project is contained in the `__init__.py` file. This file uses some top-level variables and functions and extends one Blender class, :py:class:`bpy.types.Operator`, to create the menu experience.
 
+Blender requires some module-level definitions in the `__init__.py` file to read the addon. :py:attr:`bl_info <__init__.bl_info>` tells Blender where to find the addon in the selections, and what it should be named. :py:attr:`bl_idname <__init__.bl_idname>` tells Blender the ID. :py:attr:`bl_label <__init__.bl_label>` gives the label as it will appear in the command search.
 
-`Full Source Code for __init__.py available here. <_modules/__init__.html>`_
+
+The Menu
+--------
+
+I wrote a class called :py:class:`SensorMenu <__init__.SensorMenu>` to manage the blender menu. This class extends a blender class called :py:class:`Operator <bpy.types.Operator>`. Operators are commands that can be executed in Blender by pressing spacebar, searching for the command, and hitting enter. Before they take effect, a menu may be displayed to the user so they can adjust the settings of their command before it takes effect.
+
+`SensorMenu` has class-level attributes that describe each of the menu options and the associated data type. These use defined by blender 'Property' objects, such as :py:class:`IntProperty <bpy.types.IntProperty>`.
+
+.. code-block:: python
+   :caption: Example IntProperty
+   :name: exintprop
+
+    top_pin = IntProperty(
+        name="Top GPIO pin",
+        description="The BCM numbering of the joystick top button pin connection",
+        default=5,
+        min=1,
+        max=21
+    )
+
+When the class is selected by the user from the command selected :py:func:`SensorMenu.invoke <__init__.SensorMenu.invoke>` is called. This function tells the blender :py:class:`WindowManager <bpy.types.WindowManager>` to create a window for the user interface. `WindowManager` subsequently calls :py:func:`SensorMenu.draw <__init__.SensorMenu.draw>` to make the menu layout.
+
+:py:func:`SensorMenu.draw <__init__.SensorMenu.draw>` defines how and where each menu option should be displayed by defining rows, columns, and boxes. It uses :py:class:`bpy.types.UILayout` to do so. `UILayout` can return new instances of `UILayout` with the :py:func:`row <bpy.types.UILayout.row>`, :py:func:`column <bpy.types.UILayout.column>` and :py:func:`box <bpy.types.UILayout.box>` methods. When the :py:func:`prop <bpy.types.UILayout.prop>` method is called, that portion of the layout is populated based on the property type. So by passing the `top_pin` attribute that was defined `above <#exintprop>`_ , for example, an integer selector with full input validation built in, labeled according to the Property values, populates that region of the layout.
+
+.. code-block:: python
+   :caption: Example laying out items
+
+    row_4 = main_box.row()
+    gpio_col = row_4.column()
+    gpio_box = gpio_col.box()
+    gpio_box.label('Readings')
+    trigger_select = gpio_box.row()
+    trigger_select.prop(self, "trigger_pin")
+    top_select = gpio_box.row()
+    top_select.prop(self, "top_pin")
+    interval_select = gpio_box.row()
+    interval_select.prop(self, "update_interval")
+
+
+
+Rotations
+---------
 
 The core of the logic that parses sensor data into object rotations is contained in the `update_from_joystick` function, which is executed by the update thread as the program runs. It converts readings from `JoystickReader`, based on user settings, into the appropriate rotations. Matrix rotations are used when the rotation mode is absolute and Euler rotations are used when the rotation mode is relative.
 

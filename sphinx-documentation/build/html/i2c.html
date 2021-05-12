@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
 
   
+    <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  
 
   
 
@@ -60,18 +62,36 @@
 	
           
           
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a></li>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#housing">Housing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-it-does">What it does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#use-case">Use Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#installation-instructions">Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#using-this-documentation">Using this Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#wiring-diagram">Wiring Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#joystick-to-ethernet">Joystick to Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#ethernet-jack-to-pi">Ethernet Jack to PI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#breadboard">Breadboard</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-s-implemented">How it’s implemented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-mpu9250_i2c">MPU9250_i2c</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-joystick_reader">joystick_reader</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="blender.html">blender addon</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="blender.html#how-it-was-implemented">How it was Implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#how-it-s-implemented">How it’s implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#the-menu">The Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#rotations">Rotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="blender.html#module-__init__">joystick_control (the blender files)</a></li>
 </ul>
 </li>
@@ -123,9 +143,8 @@
 	    <div id="content" class="hfeed entry-container hentry">
   <div class="section" id="i2c-interfacing">
 <h1>i2c Interfacing<a class="headerlink" href="#i2c-interfacing" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="how-it-s-implemented">
-<h2>How it’s implemented<a class="headerlink" href="#how-it-s-implemented" title="Permalink to this headline">¶</a></h2>
-<p>Two modules define classes which interface with the sensor. <a class="reference internal" href="#module-mpu9250_i2c" title="mpu9250_i2c"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpu9250_i2c</span></code></a> collects the raw data. <a class="reference internal" href="#module-joystick_reader" title="joystick_reader"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joystick_reader</span></code></a> stores and averages sensor data over time and makes it available to the Blender addon when needed.</p>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p>The code for interfacing with the sensor over i2c was largely taken from <a class="reference external" href="https://makersportal.com/blog/2019/11/11/raspberry-pi-python-accelerometer-gyroscope-magnetometer">this article by Joshua Hrisko</a>.</p>
 <p><a class="reference external" href="_modules/mpu9250_i2c.html">Source Code for mpu9250_i2c</a></p>
 <p><a class="reference external" href="_modules/joystick_reader.html">Source Code for joystick_reader</a></p>
@@ -135,6 +154,31 @@
 <li><p><a class="reference download internal" download="" href="_downloads/05b9c998a550419106bf220442434bc1/PS-MPU-9250A-01-v1.1.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Product</span> <span class="pre">Specification</span> <span class="pre">MPU-9250A</span></code></a></p></li>
 <li><p><a class="reference download internal" download="" href="_downloads/114c0ae8033b16183cd53513ddbc6d44/RM-MPU-9255.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Registry</span> <span class="pre">Map</span> <span class="pre">MPU-9255</span></code></a></p></li>
 </ul>
+</div>
+<div class="section" id="how-it-s-implemented">
+<h2>How it’s implemented<a class="headerlink" href="#how-it-s-implemented" title="Permalink to this headline">¶</a></h2>
+<p>Two modules define classes which interface with the sensor. <a class="reference internal" href="#module-mpu9250_i2c" title="mpu9250_i2c"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpu9250_i2c</span></code></a> collects the raw data. <a class="reference internal" href="#module-joystick_reader" title="joystick_reader"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joystick_reader</span></code></a> stores and averages sensor data over time and makes it available to the Blender addon when needed.</p>
+<p>The sensor uses inter-integrated circuit, or “i squared c” to communicate with the Raspberry Pi. I2C consists of two wires; the SDA (Serial data line) and SCL (Serial clock line) and pull up resistors which keep those lines high until pulled low. The SCL switches between high and low at a fixed rate. Based on the offset between the highs and lows of the SCL line and highs and lows of the SDA line, I2C devices can interpret bit data. i2C transfers data grouped into 8 bits (1 byte). The first byte of the transfer is always the address of the receiving device so more than one device can be connected at a time, except for the last bit, which indicates whether the master device should write (0) or read (1) bits from the slave device.</p>
+<p>The next address of a transfer is the address of the internal register of the receiving I2C device. This is generally followed with data to write starting at that location.</p>
+<p><a class="reference internal" href="#module-mpu9250_i2c" title="mpu9250_i2c"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpu9250_i2c</span></code></a> handles the I2C communication in this project. It initializes the accelerometer by transmitting bytes to appropriate registers to reset it to a standard mode with the <a class="reference internal" href="#mpu9250_i2c.MPU6050_start" title="mpu9250_i2c.MPU6050_start"><code class="xref py py-func docutils literal notranslate"><span class="pre">mpu9250_i2c.MPU6050_start()</span></code></a> function. This tells the sensor, among other things, to sample the gyroscope at 250 degrees per second.</p>
+<p>As the blender addon thread loops, <a class="reference internal" href="#mpu9250_i2c.mpu6050_conv" title="mpu9250_i2c.mpu6050_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">mpu9250_i2c.mpu6050_conv()</span></code></a> is called regularly. This function uses <a class="reference internal" href="#mpu9250_i2c.read_raw_bits" title="mpu9250_i2c.read_raw_bits"><code class="xref py py-func docutils literal notranslate"><span class="pre">mpu9250_i2c.read_raw_bits()</span></code></a> to extract bits from the registers in the mpu9250 where sensor readings are stored. It actually extracts one byte from the specified register and then extracts the byte from the subsequent register. Those two bytes, the high byte and the low byte, together form the reading for that sensor. Each reading is converted to degrees and adjusted based on the sensitivity setting of the sensor (250 degrees per second).</p>
+<p>The <a class="reference internal" href="#joystick_reader.JoystickReader" title="joystick_reader.JoystickReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">JoystickReader</span></code></a> class is used to interface between the blender addon and the mpu9250 conversion module. <cite>JoystickReader</cite> contains an instance of <a class="reference internal" href="#joystick_reader.Axis" title="joystick_reader.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> for each of the 3 acceleration sensors and each of the 3 gyroscope sensors, 6 total. <cite>JoystickReader</cite> collects values from <cite>mpu6050_conv</cite> and passes them to the <cite>Axis</cite> objects. The <cite>Axis</cite> objects keep running averages of recently read values based on their settings. <cite>JoystickReader</cite> also tracks what GPIO pins the trigger button and the top button of the Joystick are wired to. It sets up the GPIO system using the <a class="reference external" href="https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/">RPi.GPIO</a> library.</p>
+<p>When <a class="reference internal" href="#joystick_reader.JoystickReader.get_averages" title="joystick_reader.JoystickReader.get_averages"><code class="xref py py-func docutils literal notranslate"><span class="pre">JoystickReader.get_averages</span></code></a> is called by the blender addon, <cite>JoystickReader</cite> retrieves the current average (or the last read, if that setting is selected) from each <cite>Axis</cite>. <cite>JoystickReader</cite> also determines whether the GPIO lines that the trigger and top are wired to are high or low. <cite>JoystickReader</cite> then assembles that in a dictionary and returns it for use by the Blender addon.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example return dictionary from JoystickReader.get_averages</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">{</span>
+ <span class="s1">&#39;ax&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">acceleration_x</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+ <span class="s1">&#39;ay&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">acceleration_y</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+ <span class="s1">&#39;az&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">acceleration_z</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+ <span class="s1">&#39;wx&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">gyro_x</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+ <span class="s1">&#39;wy&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">gyro_y</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+ <span class="s1">&#39;wz&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">gyro_z</span><span class="o">.</span><span class="n">average</span><span class="p">,</span>
+ <span class="s1">&#39;top&#39;</span><span class="p">:</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_pin</span><span class="p">),</span>
+ <span class="s1">&#39;trigger&#39;</span><span class="p">:</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger_pin</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="module-mpu9250_i2c">
 <span id="mpu9250-i2c"></span><h2>MPU9250_i2c<a class="headerlink" href="#module-mpu9250_i2c" title="Permalink to this headline">¶</a></h2>
@@ -197,7 +241,7 @@
 <dd class="field-odd"><p><strong>register</strong> (<em>byte</em>) – The high byte of a sensor read register.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The sensor reading.</p>
+<dd class="field-even"><p>The sensor reading, 16 bits.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
@@ -230,8 +274,8 @@
 <dt id="mpu9250_i2c.PWR_MGMT_1">
 <code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">PWR_MGMT_1</span></code><em class="property"> <span class="pre">=</span> <span class="pre">107</span></em><a class="headerlink" href="#mpu9250_i2c.PWR_MGMT_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Power management register</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -277,8 +321,8 @@
 <code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">SMPLRT_DIV</span></code><em class="property"> <span class="pre">=</span> <span class="pre">25</span></em><a class="headerlink" href="#mpu9250_i2c.SMPLRT_DIV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sample Rate Divider register.</p>
 <p>Internal sample rate divided by this number to generate the final sample rate.</p>
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -304,8 +348,8 @@
 <dt id="mpu9250_i2c.CONFIG">
 <code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">CONFIG</span></code><em class="property"> <span class="pre">=</span> <span class="pre">26</span></em><a class="headerlink" href="#mpu9250_i2c.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration.</p>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -345,8 +389,8 @@
 <dt id="mpu9250_i2c.GYRO_CONFIG">
 <code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">GYRO_CONFIG</span></code><em class="property"> <span class="pre">=</span> <span class="pre">27</span></em><a class="headerlink" href="#mpu9250_i2c.GYRO_CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Gyroscope configuration</strong></p>
-<table class="docutils align-default" id="id5">
-<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -403,8 +447,8 @@
 <dt id="mpu9250_i2c.ACCEL_CONFIG">
 <code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">ACCEL_CONFIG</span></code><em class="property"> <span class="pre">=</span> <span class="pre">28</span></em><a class="headerlink" href="#mpu9250_i2c.ACCEL_CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Accelerometer configuration</strong></p>
-<table class="docutils align-default" id="id6">
-<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -457,8 +501,8 @@
 <dt id="mpu9250_i2c.INT_ENABLE">
 <code class="sig-prename descclassname"><span class="pre">mpu9250_i2c.</span></code><code class="sig-name descname"><span class="pre">INT_ENABLE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">56</span></em><a class="headerlink" href="#mpu9250_i2c.INT_ENABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Interrupt Enable</strong></p>
-<table class="docutils align-default" id="id7">
-<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-text">Bit Mapping</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />

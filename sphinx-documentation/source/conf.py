@@ -36,9 +36,12 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.viewcode',
     'sphinx.ext.mathjax',
-    'sphinx.ext.graphvis',
+    'sphinx.ext.graphviz',
 ]
 autodoc_member_order = 'bysource'
+
+# depends on where on the computer graphviz is installed
+graphviz_dot = 'C:/Program Files/Graphviz/bin/dot.exe'
 
 # lets ref to python3
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
