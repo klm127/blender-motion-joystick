@@ -19,6 +19,8 @@ Everything involved in the Blender addon portion of this project is contained in
 The Menu
 --------
 
+.. image:: images/menu.png
+
 :py:class:`SensorMenu <__init__.SensorMenu>` manages the blender menu. It class extends a blender class called :py:class:`Operator <bpy.types.Operator>`. Operators are commands that can be executed in Blender by pressing spacebar, searching for the command, and hitting enter. Before they take effect, a menu may be displayed to the user so they can adjust the settings of their command before it takes effect.
 
 `SensorMenu` has class-level attributes that describe each of the menu options and the associated data type. These use 'Property' objects as defined by Blender, such as :py:class:`IntProperty <bpy.types.IntProperty>`.
@@ -79,6 +81,8 @@ When the user presses ok on the menu, :py:func:`SensorMenu.execute <__init__.Sen
         if run_thread:
             run_thread.join() # destroy the update thread
             run_thread = None
+
+.. _rotations:
 
 Rotations
 ---------

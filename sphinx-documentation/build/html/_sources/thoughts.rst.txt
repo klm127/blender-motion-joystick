@@ -5,9 +5,7 @@ Project Challenges
 ------------------
 Getting the proper Blender environment set up on the Raspberry Pi was difficult. Blender uses its own version of Python, which doesn't have critical libraries like RPi.GPIO and smbus. These must be copied to the Blender directory manually. Generally, there was a lot to learn about how Blender handles addons, but the documentation is, fortunately, thorough.
 
-The single most difficult part of the project was getting matrix rotations to function properly, especially when rotating on the absolute axis. This is an important feature, because the relative axis mode is really only useful when controlling the camera - when rotating an object separate from the user's view, only absolute rotations are intuitive. I haven't yet taken Linear Algebra and was not familiar with matrices. Physics also has not covered Quaternions. Eventually, after combing StackOverflow and the Blender forums, I was able to find the solution.
-
-// explain solution
+The single most difficult part of the project was getting matrix rotations to function properly, especially when rotating on the absolute axis. This is an important feature, because the relative axis mode is really only useful when controlling the camera - when rotating an object separate from the user's view, only absolute rotations are intuitive. I haven't yet taken Linear Algebra and was not familiar with matrices. Physics also has not covered Quaternions. Eventually, after combing StackOverflow and the Blender forums, I was able to find the solution, which is described in the :ref:`rotations` section of the Blender page.
 
 Future Versions
 ---------------
@@ -23,7 +21,7 @@ If I were to extend this project in a future version, there are several things I
 
 Conclusion
 ----------
-This was a fun class that taught me a lot in an area I was really weak in, understanding how low-level electronics function. I'm proud of this final project, even though I shot a bit higher than where I landed. I will work with i2c again on a side project in the future, and am glad I learned it.
+This was a fun class that taught me a lot in an area I was really weak in, understanding how low-level electronics function. I'm proud of this final project, even though I shot a bit higher than where I landed. I will work with i2c again on a side project in the future, and am glad I learned about it.
 
 
 

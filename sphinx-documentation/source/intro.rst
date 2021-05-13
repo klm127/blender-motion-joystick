@@ -1,3 +1,5 @@
+.. image:: images/art.png
+
 Intro
 =====
 
