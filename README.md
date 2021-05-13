@@ -44,4 +44,4 @@ Pressing the top button on the joystick allows tilting joystick to move camera a
 
 ## Credit
 
-[This article by Joshua Hrisko](https://makersportal.com/blog/2019/11/11/raspberry-pi-python-accelerometer-gyroscope-magnetometer) was indispensible to this project
+[This article by Joshua Hrisko](https://makersportal.com/blog/2019/11/11/raspberry-pi-python-accelerometer-gyroscope-magnetometer) was indispensable to this project
