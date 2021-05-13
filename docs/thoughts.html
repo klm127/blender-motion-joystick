@@ -1,0 +1,234 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Final Thoughts &mdash; blender-motion-joystick 1.0 documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="blender-motion-joystick 1.0 documentation" href="index.html"/>
+        <link rel="prev" title="Blender Addon" href="blender.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> blender-motion-joystick </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#housing">Housing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-it-does">What it does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#use-case">Use Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#installation-instructions">Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#using-this-documentation">Using this Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#wiring-diagram">Wiring Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#joystick-to-ethernet">Joystick to Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#ethernet-jack-to-pi">Ethernet Jack to PI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wiring.html#breadboard">Breadboard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="i2c.html">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#how-it-s-implemented">How it’s implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html#module-joystick_reader">joystick_reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blender.html">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#how-it-s-implemented">How it’s implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#the-menu">The Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#execute">Execute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#rotations">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html#module-__init__">joystick_control (the blender files)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">final thoughts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#project-challenges">Project Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#future-versions">Future Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <div class="section" id="final-thoughts">
+<h1>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="project-challenges">
+<h2>Project Challenges<a class="headerlink" href="#project-challenges" title="Permalink to this headline">¶</a></h2>
+<p>Getting the proper Blender environment set up on the Raspberry Pi was difficult. Blender uses its own version of Python, which doesn’t have critical libraries like RPi.GPIO and smbus. These must be copied to the Blender directory manually. Generally, there was a lot to learn about how Blender handles addons, but the documentation is, fortunately, thorough.</p>
+<p>The single most difficult part of the project was getting matrix rotations to function properly, especially when rotating on the absolute axis. This is an important feature, because the relative axis mode is really only useful when controlling the camera - when rotating an object separate from the user’s view, only absolute rotations are intuitive. I haven’t yet taken Linear Algebra and was not familiar with matrices. Physics also has not covered Quaternions. Eventually, after combing StackOverflow and the Blender forums, I was able to find the solution, which is described in the <a class="reference internal" href="blender.html#rotations"><span class="std std-ref">Rotations</span></a> section of the Blender page.</p>
+</div>
+<div class="section" id="future-versions">
+<h2>Future Versions<a class="headerlink" href="#future-versions" title="Permalink to this headline">¶</a></h2>
+<p>If I were to extend this project in a future version, there are several things I would like to change and add.</p>
+<ul class="simple">
+<li><p>Move the addon class to its own .py file rather than have it in __init__.py. (Messy)</p></li>
+<li><p>Tweak the sensor registry settings for better performance.</p></li>
+<li><p>Have Options in the Blender UI for changing low-level sensor stuff, like sample rate and sample division.</p></li>
+<li><p>Explore other ways to implement the addon in Blender.</p></li>
+<li><p>Use the accelerometer to enable movement by pressing trigger and moving joystick. This was something I wanted to implement, but it wasn’t performing correctly. Accelerometer sampling may need to be tweaked, or its something else.</p></li>
+<li><p>Additional sensors in 3D printed housings for a full motion capture suit.</p></li>
+<li><p>Add bluetooth capability and battery to joystick.</p></li>
+</ul>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>This was a fun class that taught me a lot in an area I was really weak in, understanding how low-level electronics function. I’m proud of this final project, even though I shot a bit higher than where I landed. I will work with i2c again on a side project in the future, and am glad I learned about it.</p>
+</div>
+</div>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="blender.html" class="btn btn-neutral" title="Blender Addon"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Karl Miller.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

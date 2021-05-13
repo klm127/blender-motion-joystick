@@ -1,0 +1,802 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>__init__ &mdash; blender-motion-joystick 1.0 documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="blender-motion-joystick 1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> blender-motion-joystick </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#housing">Housing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#what-it-does">What it does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#use-case">Use Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#installation-instructions">Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#using-this-documentation">Using this Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../wiring.html">Wiring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../wiring.html#wiring-diagram">Wiring Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wiring.html#sensor">Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wiring.html#joystick-to-ethernet">Joystick to Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wiring.html#ethernet-jack-to-pi">Ethernet Jack to PI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wiring.html#breadboard">Breadboard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../i2c.html">i2c interfacing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../i2c.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i2c.html#how-it-s-implemented">How it’s implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i2c.html#module-mpu9250_i2c">MPU9250_i2c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i2c.html#module-joystick_reader">joystick_reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../blender.html">blender addon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../blender.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blender.html#how-it-s-implemented">How it’s implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blender.html#the-menu">The Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blender.html#rotations">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blender.html#module-__init__">joystick_control (the blender files)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../thoughts.html">final thoughts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../thoughts.html#project-challenges">Project Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thoughts.html#future-versions">Future Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thoughts.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <h1>Source code for __init__</h1><div class="highlight"><pre>
+<span></span><span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">`joystick_control/.__init__` contains all the references that interact with Blender, including the menu and</span>
+<span class="sd">functions which modify the selected objects.</span>
+
+<span class="sd">The folder `joystick_control` should be placed in `Blender/scripts/addons` directory. It will then appear in Blender as</span>
+<span class="sd">`Object: Motion Sensor Joystick Controls&#39;` in the list of available addons in the settings &gt; addons menu.</span>
+
+<span class="sd">Once installed, pressing spacebar and searching for `Open Joystick Menu` provides access to the in-blender User Interface.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">bl_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Motion Sensor Joystick Controls&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;klm127&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;blender&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;Spacebar; search&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Create links to acceleration sensor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warning&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Object&quot;</span><span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:envar:</span>
+
+<span class="sd">bl_info sets the addon information. Every blender addon file module must start with a dict named bl_info.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>  <span class="c1"># fix documentation problems with blender imports</span>
+    <span class="kn">import</span> <span class="nn">bpy</span>
+    <span class="kn">import</span> <span class="nn">mathutils</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">joystick_reader</span>
+
+    <span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">StringProperty</span><span class="p">,</span>
+        <span class="n">BoolProperty</span><span class="p">,</span>
+        <span class="n">IntProperty</span><span class="p">,</span>
+        <span class="n">FloatProperty</span><span class="p">,</span>
+        <span class="n">FloatVectorProperty</span><span class="p">,</span>
+        <span class="n">EnumProperty</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">fake_bpy279</span> <span class="kn">import</span> <span class="n">bpy</span>
+    <span class="kn">from</span> <span class="nn">fake_bpy279.bpy.props</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">StringProperty</span><span class="p">,</span>
+        <span class="n">BoolProperty</span><span class="p">,</span>
+        <span class="n">IntProperty</span><span class="p">,</span>
+        <span class="n">FloatProperty</span><span class="p">,</span>
+        <span class="n">FloatVectorProperty</span><span class="p">,</span>
+        <span class="n">EnumProperty</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Whether it is currently looping and updating the 3d render.</span>
+
+<span class="sd">:type: bool</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">run_thread</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A thread. Initialized to None - when the program is running, references active update thread.</span>
+
+<span class="sd">:type: threading.Thread</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">selected_objects</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The objects user currently has selected.</span>
+
+<span class="sd">:type: list&lt;:py:class:`bpy.types.Object`&gt;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">j_reader</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The Joystick reader, created on first execution.</span>
+
+<span class="sd">:type: :py:class:`joystick_reader.JoystickReader`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;update interval&quot;</span><span class="p">:</span> <span class="mf">0.08</span><span class="p">,</span>
+    <span class="s2">&quot;averages&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;keep vals&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;movement_modifier&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="s2">&quot;shrinkage&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+    <span class="s2">&quot;yaw active&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;pitch active&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;roll active&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;movement forward&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;movement side&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;rotation type&quot;</span><span class="p">:</span> <span class="s2">&quot;Absolute&quot;</span>
+<span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Default settings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="SensorMenu"><a class="viewcode-back" href="../blender.html#__init__.SensorMenu">[docs]</a><span class="k">class</span> <span class="nc">SensorMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SensorMenu defines the popup menu that appears in Blender when the Command is run.</span>
+
+<span class="sd">    :type: :py:class:`bpy.types.Operator`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">settings</span>
+
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;object.sensormenu&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Required name for blender reference.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Open Joystick Menu&quot;</span>  <span class="c1"># this is what comes up on the search</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Required label for command search.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PRESET&#39;</span><span class="p">}</span>
+
+    <span class="c1"># every property gets added to the window     </span>
+
+    <span class="n">running</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Running&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether input should be actively reading&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Selection data controlling whether addon should be updating objects.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">trigger_pin</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Trigger GPIO pin&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The BCM numbering of the joystick trigger pin connection&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">21</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Selection data controlling what GPIO pin Trigger button is wired to.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.IntProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">top_pin</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Top GPIO pin&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The BCM numbering of the joystick top button pin connection&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">21</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Selection data controlling what GPIO pin Top button is wired to.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.IntProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">update_interval</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Update Interval&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How long (in seconds) between sensor readings&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;update interval&quot;</span><span class="p">],</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Selection data controlling how long between sensor readings and updates.</span>
+<span class="sd">    </span>
+<span class="sd">    Minimum 0.02, maximum 1 second.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.FloatProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">averages</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Averages&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether sensor values should be averaged (true) or just the last read (false)&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;averages&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether sensor reads should be averaged or just the last read.</span>
+<span class="sd">    </span>
+<span class="sd">    Default is True.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">keepvals</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Keep Values&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How many values to store for averaging&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;keep vals&quot;</span><span class="p">],</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">30</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    How many values the sensor should store for averaging.</span>
+<span class="sd">    </span>
+<span class="sd">    Default is 10.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.IntProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Weight&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How much to weight the last reading&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">],</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    How much to weight the last reading.</span>
+<span class="sd">    </span>
+<span class="sd">    Default is 10.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.IntProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">shrinkage</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Gyro Sensitivity&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Multiplies gyro reads by a fraction to reduce sensitivity&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;shrinkage&quot;</span><span class="p">],</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mf">0.5</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Multiplies gyroscope readings by this fraction to reduce sensitivity.</span>
+<span class="sd">    </span>
+<span class="sd">    Minimum is 0.01. Maximum is 0.5</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.FloatProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">movement_shrinkage</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Movement Sensitivity&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Multiplies gyro reads by fraction to reduce senstivity for movement&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement_modifier&quot;</span><span class="p">],</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mf">0.5</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Multiplies gyroscope readings by this fraction when performing translations (during trigger press).</span>
+<span class="sd">    </span>
+<span class="sd">    This is more sensitive than rotations are, so it needs to be reduced more.</span>
+<span class="sd">    </span>
+<span class="sd">    Minimum is 0.0001. Maximum is 0.5</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.FloatProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">yaw_enabled</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Yaw&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether yaw rotations are enabled&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;yaw active&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether yawing the joystick causes the selected object to yaw when running.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pitch_enabled</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Pitch&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether pitch rotations are enabled&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;pitch active&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether pitching the joystick causes the selected object to pitch when running.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">roll_enabled</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Roll&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether roll rotations are enabled&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;roll active&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether rolling the joystick causes the selected object to roll when running.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">movement_forward</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Forward&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether object moves forward when trigger pressed based on pitch&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement forward&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether pitching the joystick forward/back with the trigger pressed causes the object to move in its forward/back direction.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">movement_side</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Side&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether object moves sideways when trigger pressed based on roll&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement side&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether rolling the joystick with the trigger pressed causes the object to move in its left/right direction.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.BoolProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rotation_type</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Rotation Type&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether to rotate the object relatively or on the absolute axes&quot;</span><span class="p">,</span>
+        <span class="n">items</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;Absolute&#39;</span><span class="p">,</span> <span class="s1">&#39;Rotate on the global axes&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;Relative&#39;</span><span class="p">,</span> <span class="s1">&#39;Shift rotation axes as object rotates&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+               <span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;rotation type&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether to rotate the object relatively or on its absolute axis.</span>
+<span class="sd">    </span>
+<span class="sd">    :type: :py:class:`bpy.types.EnumProperty`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SensorMenu.execute"><a class="viewcode-back" href="../blender.html#__init__.SensorMenu.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>  <span class="c1"># I believe this is what&#39;s called when you press &quot;ok&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executed when &quot;OK&quot; is pressed on the popup menu.</span>
+
+<span class="sd">        Sends user selection to :py:func:`main` for execution.</span>
+
+<span class="sd">        :param context: The blender context, referencing the selection and active window.</span>
+<span class="sd">        :type context: :py:class:`bpy.types.Context`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_keywords</span><span class="p">()</span>
+        <span class="n">main</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">keywords</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="SensorMenu.invoke"><a class="viewcode-back" href="../blender.html#__init__.SensorMenu.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>  <span class="c1"># happens when searched for space and selected, opens menu</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executed when addon is executed from the command selector (spacebar in Blender).</span>
+
+<span class="sd">        Creates the :py:class:`bpy.types.WindowManager`, then causes draw to execute based on SensorMenu attributes.</span>
+
+<span class="sd">        :param context: The blender context, referencing the selection and active window.</span>
+<span class="sd">        :type context: :py:class:`bpy.types.Context`</span>
+<span class="sd">        :param event:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span>
+        <span class="k">return</span> <span class="n">wm</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorMenu.draw"><a class="viewcode-back" href="../blender.html#__init__.SensorMenu.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>  <span class="c1"># called when menu opened</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called when the menu is opened.</span>
+
+<span class="sd">        Gets the selected objects. Reads user selections into settings.</span>
+
+<span class="sd">        Creates a new update thread if running is active which begins reading sensor info and applying it to blender objects.</span>
+
+<span class="sd">        :param context: The blender context, referencing the selection and active window.</span>
+<span class="sd">        :type context: :py:class:`bpy.types.Context`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">selected_objects</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
+        <span class="n">error_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1"># get selected objects</span>
+        <span class="n">selected_objects</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">num_selected</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_objects</span><span class="p">)</span>
+
+        <span class="n">main_box</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+        <span class="n">top_row</span> <span class="o">=</span> <span class="n">main_box</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">num_selected</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">top_row</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;One or more objects must be selected!&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">top_row</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;Selected object count: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_selected</span><span class="p">))</span>
+            <span class="n">list_row</span> <span class="o">=</span> <span class="n">top_row</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
+                <span class="n">ob_col</span> <span class="o">=</span> <span class="n">list_row</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+                <span class="n">ob_col</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">row_2</span> <span class="o">=</span> <span class="n">main_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">joystick_reader</span><span class="o">.</span><span class="n">error_message</span><span class="p">:</span>  <span class="c1"># if import error w/ sensor lib</span>
+
+            <span class="n">absolute_col</span> <span class="o">=</span> <span class="n">row_2</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">absolute_box</span> <span class="o">=</span> <span class="n">absolute_col</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+            <span class="n">absolute_box</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;Rotation Type&#39;</span><span class="p">)</span>
+            <span class="n">absolute_select</span> <span class="o">=</span> <span class="n">absolute_box</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">absolute_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;rotation_type&quot;</span><span class="p">)</span>
+
+            <span class="n">row_3</span> <span class="o">=</span> <span class="n">main_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+
+            <span class="n">rotations_bool_col</span> <span class="o">=</span> <span class="n">row_3</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">rotations_box</span> <span class="o">=</span> <span class="n">rotations_bool_col</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+            <span class="n">rotations_inner_row</span> <span class="o">=</span> <span class="n">rotations_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">rotations_inner_row</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Active Axes&quot;</span><span class="p">)</span>
+            <span class="n">yaw_col</span> <span class="o">=</span> <span class="n">rotations_inner_row</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">yaw_col</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;yaw_enabled&quot;</span><span class="p">)</span>
+            <span class="n">pitch_col</span> <span class="o">=</span> <span class="n">rotations_inner_row</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">pitch_col</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;pitch_enabled&quot;</span><span class="p">)</span>
+            <span class="n">roll_col</span> <span class="o">=</span> <span class="n">rotations_inner_row</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">roll_col</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;roll_enabled&quot;</span><span class="p">)</span>
+
+            <span class="n">movement_bool_col</span> <span class="o">=</span> <span class="n">row_3</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">movement_box</span> <span class="o">=</span> <span class="n">movement_bool_col</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+            <span class="n">movement_inner_row</span> <span class="o">=</span> <span class="n">movement_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">movement_inner_row</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Movement&quot;</span><span class="p">)</span>
+            <span class="n">forward_col</span> <span class="o">=</span> <span class="n">movement_inner_row</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">forward_col</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;movement_forward&quot;</span><span class="p">)</span>
+            <span class="n">side_col</span> <span class="o">=</span> <span class="n">movement_inner_row</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">side_col</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;movement_side&quot;</span><span class="p">)</span>
+
+            <span class="n">row_4</span> <span class="o">=</span> <span class="n">main_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+
+            <span class="n">gpio_col</span> <span class="o">=</span> <span class="n">row_4</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">gpio_box</span> <span class="o">=</span> <span class="n">gpio_col</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+            <span class="n">gpio_box</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;Readings&#39;</span><span class="p">)</span>
+            <span class="n">trigger_select</span> <span class="o">=</span> <span class="n">gpio_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">trigger_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;trigger_pin&quot;</span><span class="p">)</span>
+            <span class="n">top_select</span> <span class="o">=</span> <span class="n">gpio_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">top_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;top_pin&quot;</span><span class="p">)</span>
+            <span class="n">interval_select</span> <span class="o">=</span> <span class="n">gpio_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">interval_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;update_interval&quot;</span><span class="p">)</span>
+
+            <span class="n">average_col</span> <span class="o">=</span> <span class="n">row_4</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">average_box</span> <span class="o">=</span> <span class="n">average_col</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+            <span class="n">average_select</span> <span class="o">=</span> <span class="n">average_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">average_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;averages&quot;</span><span class="p">)</span>
+            <span class="n">keep_vals_select</span> <span class="o">=</span> <span class="n">average_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">keep_vals_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;keepvals&quot;</span><span class="p">)</span>
+            <span class="n">weight_select</span> <span class="o">=</span> <span class="n">average_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">weight_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+
+            <span class="n">modifier_col</span> <span class="o">=</span> <span class="n">row_4</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="n">modifier_box</span> <span class="o">=</span> <span class="n">modifier_col</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+            <span class="n">modifier_box</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s1">&#39;Sensitivity&#39;</span><span class="p">)</span>
+            <span class="n">shrinkage_select</span> <span class="o">=</span> <span class="n">modifier_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">shrinkage_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;shrinkage&quot;</span><span class="p">)</span>
+            <span class="n">movement_shrinkage_select</span> <span class="o">=</span> <span class="n">modifier_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">movement_shrinkage_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;movement_shrinkage&quot;</span><span class="p">)</span>
+
+            <span class="n">run_select</span> <span class="o">=</span> <span class="n">main_box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">run_select</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;running&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row_2</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Error occurred in the mpu9250.py file. Check connections are properly configured.&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../blender.html#__init__.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Called after &quot;OK&quot; is pressed on the UI Window. Parses user selection to control program behavior.</span>
+
+<span class="sd">    Starts the update thread if one doesn&#39;t exist and the user selected &quot;running&quot;.</span>
+
+<span class="sd">    Stops and deletes the update thread if one does exist and the user did not select &quot;running&quot;.</span>
+
+<span class="sd">    The thread executes :py:func:`update_from_joystick`</span>
+
+<span class="sd">    :param context: The blender context, referencing the selection and active window.</span>
+<span class="sd">    :type context: :py:class:`bpy.types.Context`</span>
+
+<span class="sd">    :param kw: Represents user selection</span>
+<span class="sd">    :type kw: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">running</span>
+    <span class="k">global</span> <span class="n">run_thread</span>
+    <span class="k">global</span> <span class="n">j_reader</span>
+    <span class="k">global</span> <span class="n">settings</span>
+    <span class="c1"># get currently selected values </span>
+    <span class="n">kw_copy</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">run_selection</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;running&#39;</span><span class="p">)</span>
+    <span class="n">trigger_pin</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;trigger_pin&#39;</span><span class="p">)</span>
+    <span class="n">top_pin</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;top_pin&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;update interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;update_interval&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;averages&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;averages&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;shrinkage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;shrinkage&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement_shrinkage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;movement_shrinkage&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;keep vals&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;keepvals&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;yaw active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;yaw_enabled&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;pitch active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pitch_enabled&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;roll active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;roll_enabled&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement forward&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;movement_forward&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement side&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;movement_side&#39;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;rotation type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kw_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rotation_type&#39;</span><span class="p">)</span>
+    <span class="c1"># kw copying might not be totally necessary, but if it ain&#39;t broke...</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">j_reader</span><span class="p">:</span>
+        <span class="n">j_reader</span> <span class="o">=</span> <span class="n">joystick_reader</span><span class="o">.</span><span class="n">JoystickReader</span><span class="p">(</span><span class="n">trigger_pin</span><span class="p">,</span> <span class="n">top_pin</span><span class="p">,</span> <span class="n">keepvals</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;keep vals&quot;</span><span class="p">],</span>
+                                                  <span class="n">weight</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">])</span>
+        <span class="c1"># create reader if doesn&#39;t exist (first run)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">j_reader</span><span class="o">.</span><span class="n">load_pins</span><span class="p">(</span><span class="n">trigger_pin</span><span class="p">,</span> <span class="n">top_pin</span><span class="p">)</span> <span class="c1"># update reader with user selection if reader exists</span>
+        <span class="n">j_reader</span><span class="o">.</span><span class="n">load_keep_vals_and_weight</span><span class="p">(</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;keep vals&quot;</span><span class="p">],</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">run_selection</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">running</span><span class="p">:</span> <span class="c1"># create the update thread</span>
+            <span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">run_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">update_from_joystick</span><span class="p">)</span>
+            <span class="n">run_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">run_thread</span><span class="p">:</span>
+            <span class="n">run_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span> <span class="c1"># destroy the update thread</span>
+            <span class="n">run_thread</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="update_from_joystick"><a class="viewcode-back" href="../blender.html#__init__.update_from_joystick">[docs]</a><span class="k">def</span> <span class="nf">update_from_joystick</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function is what is executed by `run_thread` every update interval.</span>
+
+<span class="sd">    Gets raw data from the joystick reader and applies it to the selected objects in Blender.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">selected_objects</span>
+    <span class="k">global</span> <span class="n">settings</span>
+    <span class="k">global</span> <span class="n">j_reader</span>
+    <span class="n">shrinkage</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;shrinkage&quot;</span><span class="p">]</span>
+    <span class="n">movement_modifier</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement_shrinkage&quot;</span><span class="p">]</span>
+    <span class="n">yaw_shrinkage</span> <span class="o">=</span> <span class="n">shrinkage</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;update interval&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;averages&quot;</span><span class="p">]:</span>
+        <span class="n">get_func</span> <span class="o">=</span> <span class="n">j_reader</span><span class="o">.</span><span class="n">get_averages</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">get_func</span> <span class="o">=</span> <span class="n">j_reader</span><span class="o">.</span><span class="n">get_last</span>
+    <span class="k">while</span> <span class="n">running</span><span class="p">:</span>
+        <span class="n">j_reader</span><span class="o">.</span><span class="n">get_vals_from_sensor</span><span class="p">()</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="n">get_func</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obj3d</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]:</span>  <span class="c1"># if the top button is pressed</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;rotation type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Absolute&quot;</span><span class="p">:</span>  <span class="c1"># use operator for absolute rotations</span>
+                    <span class="n">location</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+                    <span class="n">location</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+                    <span class="c1"># location is given as a vector and has to be a matrix for recomposition</span>
+                    <span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">to_4x4</span><span class="p">()</span>
+                    <span class="c1"># rotation is given as a Quat and has to be a matrix for recomposition</span>
+                    <span class="n">scale</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">scale</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                    <span class="c1"># same with scale (a vector)</span>
+                    <span class="n">new_rotation</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                    <span class="c1"># start with a 0 rotation</span>
+                    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;yaw active&quot;</span><span class="p">]:</span>
+                        <span class="n">new_rotation</span> <span class="o">*=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s2">&quot;wy&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">yaw_shrinkage</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;pitch active&quot;</span><span class="p">]:</span>
+                        <span class="n">new_rotation</span> <span class="o">*=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="s2">&quot;wx&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;roll active&quot;</span><span class="p">]:</span>
+                        <span class="n">new_rotation</span> <span class="o">*=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="s2">&quot;wz&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">location</span> <span class="o">*</span> <span class="n">new_rotation</span> <span class="o">*</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">scale</span>
+                    <span class="c1"># to perform absolute rotations, they have to be added before the existing rotation</span>
+                    <span class="c1"># as the matrix is re-assembled from its components</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># perform relative rotations</span>
+                    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;yaw active&quot;</span><span class="p">]:</span>
+                        <span class="n">obj3d</span><span class="o">.</span><span class="n">rotation_euler</span><span class="o">.</span><span class="n">rotate_axis</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wz&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">yaw_shrinkage</span><span class="p">)</span>  <span class="c1"># yaw</span>
+                    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;pitch active&quot;</span><span class="p">]:</span>
+                        <span class="n">obj3d</span><span class="o">.</span><span class="n">rotation_euler</span><span class="o">.</span><span class="n">rotate_axis</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wx&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">)</span>  <span class="c1"># pitch</span>
+                    <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;roll active&quot;</span><span class="p">]:</span>
+                        <span class="n">obj3d</span><span class="o">.</span><span class="n">rotation_euler</span><span class="o">.</span><span class="n">rotate_axis</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wy&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">shrinkage</span><span class="p">)</span>  <span class="c1"># roll</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;trigger&#39;</span><span class="p">]:</span>  <span class="c1"># if the trigger is pressed</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement forward&quot;</span><span class="p">]:</span>
+                    <span class="n">forward_vector</span> <span class="o">=</span> <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_local</span><span class="o">.</span><span class="n">col</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># column major matrix, 3rd col is fwd vector</span>
+                    <span class="n">new_vec</span> <span class="o">=</span> <span class="n">forward_vector</span> <span class="o">*</span> <span class="mi">1</span>  <span class="c1"># just copies the vector</span>
+                    <span class="n">new_vec</span><span class="o">.</span><span class="n">resize_3d</span><span class="p">()</span>  <span class="c1"># make it 3 instead of 4</span>
+                    <span class="n">new_vec</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+                    <span class="n">new_vec</span> <span class="o">*=</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wx&#39;</span><span class="p">]</span>  <span class="c1"># pitch controls forward/backward when trig pressed</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">z</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;movement side&quot;</span><span class="p">]:</span>
+                    <span class="n">left_right_vector</span> <span class="o">=</span> <span class="n">obj3d</span><span class="o">.</span><span class="n">matrix_local</span><span class="o">.</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">new_vec</span> <span class="o">=</span> <span class="n">left_right_vector</span> <span class="o">*</span> <span class="mi">1</span>
+                    <span class="n">new_vec</span><span class="o">.</span><span class="n">resize_3d</span><span class="p">()</span>
+                    <span class="n">new_vec</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+                    <span class="n">new_vec</span> <span class="o">*=</span> <span class="o">-</span><span class="n">vals</span><span class="p">[</span><span class="s1">&#39;wz&#39;</span><span class="p">]</span>  <span class="c1"># yaw controls left/right when trig pressed</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+                    <span class="n">obj3d</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">z</span> <span class="o">-=</span> <span class="n">new_vec</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">movement_modifier</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="register"><a class="viewcode-back" href="../blender.html#__init__.register">[docs]</a><span class="k">def</span> <span class="nf">register</span><span class="p">():</span>  <span class="c1"># gets called when module loaded, either at start or in preferences menu</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Required for blender addons. Called by Blender to register classes.</span>
+
+<span class="sd">    In this case, just registers SensorMenu.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">SensorMenu</span><span class="p">)</span>  <span class="c1"># causes class to appear in search (spacebar)</span></div>
+
+
+<div class="viewcode-block" id="unregister"><a class="viewcode-back" href="../blender.html#__init__.unregister">[docs]</a><span class="k">def</span> <span class="nf">unregister</span><span class="p">():</span>  <span class="c1"># called when module unloaded</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Required for blender addons. Called by Blender when addon is deactivated.</span>
+
+<span class="sd">    In this case, just unregisters SensorMenu.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">j_reader</span>
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">SensorMenu</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">j_reader</span><span class="p">:</span>
+        <span class="n">j_reader</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="n">j_reader</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># needed?</span></div>
+</pre></div>
+
+	    </div>
+            <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Karl Miller.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="../_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="../_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>
