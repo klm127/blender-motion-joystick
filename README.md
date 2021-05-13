@@ -1,5 +1,7 @@
 # blender-motion-joystick
 
+[Click here for documentation and lab report](https://www.quaffingcode.com/blender-motion-joystick/)
+
 Project using WaveShare MPU-9255 10-DOF IMU Sensor mounted in a Vintage flight joystick handle housing to move objects in Blender. I am unsure on the exact model of the joystick; I bought mine from EBay. Any two-button joystick should work for this.  
 
 Needs SDA, SCL (i2c communication for MPU-9255), 2 GPIO pins for joystick buttons, VCC (3-5v), and Ground.
