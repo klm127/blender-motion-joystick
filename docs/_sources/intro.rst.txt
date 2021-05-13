@@ -3,7 +3,7 @@
 Intro
 =====
 
-This project is a motion-sensing controller for use in a variety of 3D applications. To demonstrate it, an addon has been written for `Blender <https://www.blender.org/>`_, a popular, open-source 3D Modeling application used by artists all over the world.
+This project is a motion-sensing joystick which correctly determines hand and wrist orientation and uses an addon written for `Blender <https://www.blender.org/>`_, a popular, open-source 3D Modeling application used by artists all over the world, to render those rotations on selected objects in the 3D space.
 
 Housing
 -------
